@@ -1,0 +1,909 @@
+[
+  {
+    "Id": 2,
+    "Name": "Storage",
+    "BoundsMinX": 0,
+    "BoundsMinY": 0,
+    "BoundsWidth": 800,
+    "BoundsHeight": 450,
+    "BackgroundTextureName": "1022.png",
+    "GroundBoxes": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 780,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 800,
+        "Height": 20,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 415,
+        "Width": 800,
+        "Height": 35,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 120,
+        "Y": 290,
+        "Width": 80,
+        "Height": 125,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "CONCRETE"
+      },
+      {
+        "X": 600,
+        "Y": 290,
+        "Width": 80,
+        "Height": 125,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "CONCRETE"
+      },
+      {
+        "X": 200,
+        "Y": 290,
+        "Width": 180,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 420,
+        "Y": 290,
+        "Width": 180,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 280,
+        "Y": 190,
+        "Width": 240,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 40,
+        "Y": 210,
+        "Width": 140,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 620,
+        "Y": 210,
+        "Width": 140,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      }
+    ],
+    "PlayerSpawns": [
+      {
+        "X": 160,
+        "Y": 240
+      },
+      {
+        "X": 640,
+        "Y": 240
+      }
+    ],
+    "WeaponSpawns": [
+      {
+        "X": 400,
+        "Y": 170,
+        "WeaponPool": []
+      },
+      {
+        "X": 250,
+        "Y": 270,
+        "WeaponPool": []
+      },
+      {
+        "X": 550,
+        "Y": 270,
+        "WeaponPool": []
+      }
+    ]
+  },
+  {
+    "Id": 0,
+    "Name": "Tutorial",
+    "BoundsMinX": 0,
+    "BoundsMinY": 0,
+    "BoundsWidth": 800,
+    "BoundsHeight": 450,
+    "BackgroundTextureName": "230.png",
+    "GroundBoxes": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 780,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 800,
+        "Height": 20,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 400,
+        "Width": 800,
+        "Height": 50,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 200,
+        "Y": 320,
+        "Width": 160,
+        "Height": 8,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 440,
+        "Y": 320,
+        "Width": 160,
+        "Height": 8,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 320,
+        "Y": 240,
+        "Width": 160,
+        "Height": 8,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      }
+    ],
+    "PlayerSpawns": [
+      {
+        "X": 160,
+        "Y": 360
+      },
+      {
+        "X": 640,
+        "Y": 360
+      }
+    ],
+    "WeaponSpawns": [
+      {
+        "X": 400,
+        "Y": 210,
+        "WeaponPool": []
+      },
+      {
+        "X": 280,
+        "Y": 290,
+        "WeaponPool": []
+      },
+      {
+        "X": 520,
+        "Y": 290,
+        "WeaponPool": []
+      }
+    ]
+  },
+  {
+    "Id": 1,
+    "Name": "Storage",
+    "BoundsMinX": 0,
+    "BoundsMinY": 0,
+    "BoundsWidth": 800,
+    "BoundsHeight": 450,
+    "BackgroundTextureName": "1022.png",
+    "GroundBoxes": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 780,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 800,
+        "Height": 20,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 415,
+        "Width": 800,
+        "Height": 35,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 120,
+        "Y": 290,
+        "Width": 80,
+        "Height": 125,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "CONCRETE"
+      },
+      {
+        "X": 600,
+        "Y": 290,
+        "Width": 80,
+        "Height": 125,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "CONCRETE"
+      },
+      {
+        "X": 200,
+        "Y": 290,
+        "Width": 180,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 420,
+        "Y": 290,
+        "Width": 180,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 280,
+        "Y": 190,
+        "Width": 240,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 40,
+        "Y": 210,
+        "Width": 140,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 620,
+        "Y": 210,
+        "Width": 140,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      }
+    ],
+    "PlayerSpawns": [
+      {
+        "X": 160,
+        "Y": 240
+      },
+      {
+        "X": 640,
+        "Y": 240
+      }
+    ],
+    "WeaponSpawns": [
+      {
+        "X": 400,
+        "Y": 170,
+        "WeaponPool": []
+      },
+      {
+        "X": 250,
+        "Y": 270,
+        "WeaponPool": []
+      },
+      {
+        "X": 550,
+        "Y": 270,
+        "WeaponPool": []
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "Name": "Police Station",
+    "BoundsMinX": 0,
+    "BoundsMinY": 0,
+    "BoundsWidth": 800,
+    "BoundsHeight": 450,
+    "BackgroundTextureName": "1546.png",
+    "GroundBoxes": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 780,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 410,
+        "Width": 800,
+        "Height": 40,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 100,
+        "Y": 310,
+        "Width": 200,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 500,
+        "Y": 310,
+        "Width": 200,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 250,
+        "Y": 220,
+        "Width": 300,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 40,
+        "Y": 180,
+        "Width": 150,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 610,
+        "Y": 180,
+        "Width": 150,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      }
+    ],
+    "PlayerSpawns": [
+      {
+        "X": 150,
+        "Y": 360
+      },
+      {
+        "X": 650,
+        "Y": 360
+      }
+    ],
+    "WeaponSpawns": [
+      {
+        "X": 400,
+        "Y": 190,
+        "WeaponPool": []
+      },
+      {
+        "X": 200,
+        "Y": 280,
+        "WeaponPool": []
+      },
+      {
+        "X": 600,
+        "Y": 280,
+        "WeaponPool": []
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "Name": "Hazardous",
+    "BoundsMinX": 0,
+    "BoundsMinY": 0,
+    "BoundsWidth": 800,
+    "BoundsHeight": 450,
+    "BackgroundTextureName": "1687.png",
+    "GroundBoxes": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 780,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 410,
+        "Width": 800,
+        "Height": 40,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 180,
+        "Y": 330,
+        "Width": 140,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 480,
+        "Y": 330,
+        "Width": 140,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 320,
+        "Y": 250,
+        "Width": 160,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 100,
+        "Y": 200,
+        "Width": 160,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 540,
+        "Y": 200,
+        "Width": 160,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      }
+    ],
+    "PlayerSpawns": [
+      {
+        "X": 140,
+        "Y": 360
+      },
+      {
+        "X": 660,
+        "Y": 360
+      }
+    ],
+    "WeaponSpawns": [
+      {
+        "X": 400,
+        "Y": 220,
+        "WeaponPool": []
+      },
+      {
+        "X": 240,
+        "Y": 300,
+        "WeaponPool": []
+      },
+      {
+        "X": 560,
+        "Y": 300,
+        "WeaponPool": []
+      }
+    ]
+  },
+  {
+    "Id": 5,
+    "Name": "Backstreets",
+    "BoundsMinX": 0,
+    "BoundsMinY": 0,
+    "BoundsWidth": 800,
+    "BoundsHeight": 450,
+    "BackgroundTextureName": "1373.png",
+    "GroundBoxes": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 780,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 405,
+        "Width": 800,
+        "Height": 45,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 80,
+        "Y": 310,
+        "Width": 160,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 560,
+        "Y": 310,
+        "Width": 160,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 280,
+        "Y": 240,
+        "Width": 240,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 140,
+        "Y": 170,
+        "Width": 180,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 480,
+        "Y": 170,
+        "Width": 180,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      }
+    ],
+    "PlayerSpawns": [
+      {
+        "X": 160,
+        "Y": 360
+      },
+      {
+        "X": 640,
+        "Y": 360
+      }
+    ],
+    "WeaponSpawns": [
+      {
+        "X": 400,
+        "Y": 210,
+        "WeaponPool": []
+      },
+      {
+        "X": 160,
+        "Y": 280,
+        "WeaponPool": []
+      },
+      {
+        "X": 640,
+        "Y": 280,
+        "WeaponPool": []
+      }
+    ]
+  },
+  {
+    "Id": 6,
+    "Name": "Testing Floor",
+    "BoundsMinX": 0,
+    "BoundsMinY": 0,
+    "BoundsWidth": 800,
+    "BoundsHeight": 450,
+    "BackgroundTextureName": "1232.png",
+    "GroundBoxes": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 780,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 410,
+        "Width": 800,
+        "Height": 40,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 150,
+        "Y": 320,
+        "Width": 180,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 470,
+        "Y": 320,
+        "Width": 180,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 300,
+        "Y": 210,
+        "Width": 200,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      }
+    ],
+    "PlayerSpawns": [
+      {
+        "X": 180,
+        "Y": 360
+      },
+      {
+        "X": 620,
+        "Y": 360
+      }
+    ],
+    "WeaponSpawns": [
+      {
+        "X": 400,
+        "Y": 180,
+        "WeaponPool": []
+      },
+      {
+        "X": 240,
+        "Y": 290,
+        "WeaponPool": []
+      },
+      {
+        "X": 560,
+        "Y": 290,
+        "WeaponPool": []
+      }
+    ]
+  },
+  {
+    "Id": 7,
+    "Name": "Survival",
+    "BoundsMinX": 0,
+    "BoundsMinY": 0,
+    "BoundsWidth": 800,
+    "BoundsHeight": 450,
+    "BackgroundTextureName": "509.png",
+    "GroundBoxes": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 780,
+        "Y": 0,
+        "Width": 20,
+        "Height": 450,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 0,
+        "Y": 415,
+        "Width": 800,
+        "Height": 35,
+        "Angle": 0,
+        "IsPlatform": false,
+        "Material": "GROUND"
+      },
+      {
+        "X": 100,
+        "Y": 330,
+        "Width": 160,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 540,
+        "Y": 330,
+        "Width": 160,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 260,
+        "Y": 250,
+        "Width": 280,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 160,
+        "Y": 170,
+        "Width": 160,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      },
+      {
+        "X": 480,
+        "Y": 170,
+        "Width": 160,
+        "Height": 10,
+        "Angle": 0,
+        "IsPlatform": true,
+        "Material": "METAL"
+      }
+    ],
+    "PlayerSpawns": [
+      {
+        "X": 140,
+        "Y": 360
+      },
+      {
+        "X": 660,
+        "Y": 360
+      }
+    ],
+    "WeaponSpawns": [
+      {
+        "X": 400,
+        "Y": 220,
+        "WeaponPool": []
+      },
+      {
+        "X": 180,
+        "Y": 300,
+        "WeaponPool": []
+      },
+      {
+        "X": 620,
+        "Y": 300,
+        "WeaponPool": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+package-lock.json.backup
+
+# Build outputs
+dist/
+bin/
+obj/
+*.exe.config
+
+# IDE & OS files
+.vs/
+*.user
+*.suo
+.DS_Store
+Thumbs.db
+
+# Large binaries / temporary archives
+superfighters-flash-game/*.zip
+tools/ffdec.zip
+tools/extract/swf.xml
+tools/extract/temp/

@@ -1,0 +1,82 @@
+[
+  {
+    "Id": 1,
+    "Name": "Johnny",
+    "SkinTextureName": "player_johnny",
+    "PrimaryColorRgba": 574925567,
+    "SecondaryColorRgba": 286331391,
+    "SkinColorRgba": 4123764735,
+    "HairColorRgba": 1429410303,
+    "LockedByDefault": false
+  },
+  {
+    "Id": 2,
+    "Name": "Boris",
+    "SkinTextureName": "player_boris",
+    "PrimaryColorRgba": 2283938559,
+    "SecondaryColorRgba": 572662527,
+    "SkinColorRgba": 4123764735,
+    "HairColorRgba": 286331391,
+    "LockedByDefault": false
+  },
+  {
+    "Id": 3,
+    "Name": "Agent",
+    "SkinTextureName": "player_agent",
+    "PrimaryColorRgba": 286331391,
+    "SecondaryColorRgba": 4294967295,
+    "SkinColorRgba": 4123764735,
+    "HairColorRgba": 572662527,
+    "LockedByDefault": false
+  },
+  {
+    "Id": 4,
+    "Name": "Billy",
+    "SkinTextureName": "player_billy",
+    "PrimaryColorRgba": 579351551,
+    "SecondaryColorRgba": 858993663,
+    "SkinColorRgba": 4123764735,
+    "HairColorRgba": 4007478527,
+    "LockedByDefault": false
+  },
+  {
+    "Id": 5,
+    "Name": "Scott",
+    "SkinTextureName": "player_scott",
+    "PrimaryColorRgba": 2858820351,
+    "SecondaryColorRgba": 572662527,
+    "SkinColorRgba": 4123764735,
+    "HairColorRgba": 1999835647,
+    "LockedByDefault": false
+  },
+  {
+    "Id": 6,
+    "Name": "Funnyman",
+    "SkinTextureName": "player_funnyman",
+    "PrimaryColorRgba": 4001894911,
+    "SecondaryColorRgba": 286331391,
+    "SkinColorRgba": 4123764735,
+    "HairColorRgba": 16711935,
+    "LockedByDefault": true
+  },
+  {
+    "Id": 7,
+    "Name": "Mac",
+    "SkinTextureName": "player_mac",
+    "PrimaryColorRgba": 1431655935,
+    "SecondaryColorRgba": 286331391,
+    "SkinColorRgba": 4123764735,
+    "HairColorRgba": 858993663,
+    "LockedByDefault": false
+  },
+  {
+    "Id": 8,
+    "Name": "Jeff",
+    "SkinTextureName": "player_jeff",
+    "PrimaryColorRgba": 860120831,
+    "SecondaryColorRgba": 572662527,
+    "SkinColorRgba": 4123764735,
+    "HairColorRgba": 1715741439,
+    "LockedByDefault": false
+  }
+]

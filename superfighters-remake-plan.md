@@ -1,0 +1,161 @@
+# Superfighters Remake — Plano Mestre (v2, refinado)
+
+> **Status:** Fonte única da verdade. Substitui `PLANO_DEFINITIVO_SUPERFIGHTERS_REMAKE.md`, `PLANO_DEFINITIVO_TS_PIXIJS.md` e `PLANO_REMAKE_CSHARP.md` (mantidos só como histórico).
+> **Atualizado:** 2026-10-21 · **Stack:** TypeScript + Vite + PixiJS v8 + planck.js · **Projeto ativo:** `superfighters-web/`
+> **Histórico de sessões:** `.agents/memory/superfighters-progress.md`
+
+## Objetivo
+Port 1:1 do *Superfighters* (Flash/AS3) para web, onde **todo número, regra e frame vem do SWF descompilado** — zero invenção.
+
+---
+
+## 1. Contrato de Fidelidade (regras invioláveis)
+
+| # | Regra | Como aplicar |
+|---|-------|--------------|
+| F1 | Toda constante cita a fonte | Comentário `// Player.as:7708` ao lado do valor |
+| F2 | Lógica roda a **30 Hz fixo** | `GameMain.as:847` → `m_timeStep = 1 / (30 / Slowmotion)` |
+| F3 | Escala física 30 px = 1 m | `GameMain.as:856` (`GetPosition().x * 30`) |
+| F4 | Gravidade do mundo `(0, 10)` | `Maps.as:118` |
+| F5 | Pixel art nítida | `scaleMode = 'nearest'`, `roundPixels`, sem antialias |
+| F6 | Animação = **labels** + filho `ANIM` | `PlayerAnimation.as:278-365` (não é "frame 1..56") |
+| F7 | Dados vêm de extração, não de digitação | JSON gerado pelo pipeline da Fase 1 |
+| F8 | Na dúvida, investigar o AS3 — nunca chutar | Registrar a dúvida na seção 7 |
+
+---
+
+## 2. Estado Atual (verificado em 2026-10-21)
+
+| Módulo | Arquivo | Estado |
+|--------|---------|--------|
+| Scaffold Vite + Pixi + planck | `superfighters-web/package.json` | ✅ `npm run build` passa |
+| DisplayList (9 camadas Flash) | `src/engine/DisplayLayers.ts` | ✅ |
+| Câmera (port `Cam.as`) + pan/zoom debug | `src/engine/Camera.ts` | ✅ (sem seguir jogadores ainda) |
+| Mapa Storage (solo/cloud/ladder) | `src/stage/StorageMap.ts` | ✅ `Maps.as:2346-2435`, tecla `H` = hitboxes |
+| Caixas/barris físicos | `src/stage/DestructibleItem.ts` | ✅ massas de `MapPremadeItems.as` |
+| Assets | `public/assets` → `decompiled/assets` | ✅ |
+
+### Defeitos encontrados na auditoria (corrigir na Fase 0)
+1. **Passo físico errado:** `main.ts` faz `world.step(1/60)` a cada tick do Pixi. Original = 1/30 a 30 Hz (F2). Velocidades e quedas estão em ritmo errado.
+2. **Modelo de animação errado nos planos antigos:** os 56 PNGs de `DefineSprite_1372_player_billy` são os *frames rotulados externos* achatados. Cada label (`IDLE`, `RUN`, `DIVE`…) contém um MovieClip filho `ANIM` (e `HELPMC`, `ANIM_WPN`, `DOLL`) com sub-frames próprios — **que não estão exportados**.
+3. Labels de frame e matrizes de `PlaceObject` (pivôs/offsets) não foram extraídos.
+4. Sem repositório git, sem testes, boilerplate do Vite (`counter.ts`, `hero.png`) ainda presente.
+
+---
+
+## 3. Arquitetura Alvo
+
+```
+superfighters-web/
+├── tools/extract/            # Pipeline SWF → JSON (Node, roda offline)
+│   ├── swf2xml.ps1           # ffdec-cli -swf2xml
+│   └── build-sprite-db.ts    # XML → src/data/generated/*.json
+├── public/assets/            # PNGs/MP3s (+ sub-sprites exportados)
+├── src/
+│   ├── main.ts               # bootstrap apenas
+│   ├── data/generated/       # sprites.json, labels.json (NÃO editar à mão)
+│   ├── engine/  GameLoop.ts (30 Hz fixo) · Camera.ts · DisplayLayers.ts · Input.ts
+│   ├── stage/   StorageMap.ts · DestructibleItem.ts · Ladders/Clouds (contact filter)
+│   ├── player/  PlayerState.ts · Player.ts · PlayerAnimation.ts · CharacterSkin.ts
+│   ├── weapons/ WeaponRegistry.ts · ProjectilesUpdater.ts
+│   ├── destruction/ Explosions.ts · Fires.ts
+│   ├── audio/   Sounds.ts
+│   ├── ui/      PlayerBars.ts
+│   └── ai/      BotState.ts · PathGrid.ts
+└── tests/                    # Vitest — ports puros (sem Pixi)
+```
+
+**Princípios:** lógica (`player/`, `weapons/`, `ai/`) sem dependência de Pixi → testável; Pixi só em `*Skin`/renderers; input abstraído em ações (`left/right/up/down/attack/jump/sprint`), mapeadas a teclas de `InputKeyboard.as`.
+
+---
+
+## 4. Roteiro por Fases
+
+> Cada fase termina com app rodando em `npm run dev` + verificação visível. Não avançar com fase vermelha.
+
+### Fase 0 — Higiene e loop correto *(pré-requisito)*
+- [ ] `git init` na raiz + `.gitignore` (node_modules, dist, bin, obj, `superfighters-flash-game/*.zip`) → Verify: `git status` limpo após commit inicial
+- [ ] Remover `counter.ts`, `src/assets/*` do Vite → Verify: build passa
+- [ ] Criar `GameLoop.ts` com acumulador fixo 1/30 s, render a cada rAF → Verify: overlay mostra `logic: 30 Hz`
+- [ ] Trocar `world.step(1/60, 8, 3)` por `step(1/30)` com iterações de `GameMain.as` (`m_iterations`) → Verify: caixa cai na mesma velocidade que no Flash (comparar no Ruffle)
+- [ ] Instalar Vitest + 1 teste trivial → Verify: `npx vitest run` verde
+
+### Fase 1 — Pipeline de extração de sprites *(caminho crítico, desbloqueia tudo)*
+- [ ] `tools/ffdec/ffdec-cli.exe -swf2xml superfighters.swf tools/extract/swf.xml` → Verify: XML contém `FrameLabelTag` com `IDLE`
+- [ ] Script `build-sprite-db.ts`: por DefineSprite → `{id, name, frames, labels{label:frame}, children[{depth, charId, name, matrix}]}` → Verify: Billy tem labels `IDLE, RUN, SPRINT, JUMP, DIVE, ROLL, FALL_F, FALL_B, KNOCKDOWN, CLIMB…`
+- [ ] Exportar **todos** os sub-sprites `ANIM`/`HELPMC`/`ANIM_WPN` com `ffdec-cli -export sprite` (PNG por frame, com bounds) → Verify: pasta do `ANIM` de `RUN` tem N frames = `totalFrames` do XML
+- [ ] Registrar offset de registro (bounds xMin/yMin em twips/20) por frame → Verify: frame sobreposto ao PNG achatado bate pixel a pixel
+- [ ] Gerar `labels.json`/`sprites.json` em `src/data/generated/` → Verify: teste Vitest carrega e valida schema
+- [ ] Rodar o SWF original no **Ruffle** (desktop/web) como referência visual lado a lado → Verify: Storage abre no Ruffle
+
+### Fase 2 — PlayerState + física do lutador
+- [ ] **Investigar antes de codar:** como `Player.as` cria o corpo (`b2BodyDef`, shape, filtros) e se o movimento é cinemático próprio (`AirVelocityX/Y`, `PlayerGravity 0.6`) ou dinâmico → Verify: nota com linhas citadas na seção 7
+- [ ] Port de `PlayerState.as` (campos + `RunSpeed 1.7`, `JumpPower -5`, `JumpPushPower -0.7`, `JumpPushTime 4`, `RollSpeed 2`, `DiveSpeed 3.5`, `ClimbSpeed 1.5`, `SlideSpeed 3`, `FallTriggerSpeed 8.5`, `SprintEnergy 100`) → Verify: testes de valores iniciais
+- [ ] `Input.ts` com mapeamento de `InputKeyboard.as` (P1/P2) → Verify: overlay mostra ações ativas
+- [ ] Movimento: correr, pular (+jump push), cair, sprint com energia → Verify: Billy atravessa Storage, sobe em cloud por baixo
+- [ ] Rolamento, mergulho (`_this_y -= 6`, `AirVelocityY -= 3`), agachar, escadas → Verify: comparação com Ruffle
+- [ ] Colisão de mergulho: `ApplyImpulse(LastDirX,0)` + `Damage_Impact(2)` → Verify: mergulho empurra caixa
+
+### Fase 3 — PlayerAnimation 1:1
+- [ ] Port literal de `UpdateAnimation()` (ordem de prioridade dos estados, `PlayerAnimation.as:84-267`) → Verify: teste estado→label
+- [ ] `ShowAnimation()` com tabela de loop (`IDLE/RUN/SPRINT/CLIMB/STAGGER/GRABBED`), `DIVE` (rot 1.5), `FALL_B/F` (rot ∓10, inc ∓2, cap 36) → Verify: testes
+- [ ] `ProgressAnimation(dt)` com `_current_frame` fracionário, `AnimationDone()` resetando flags → Verify: ROLL termina e volta a IDLE
+- [ ] `CharacterSkin.ts`: Container externo + filho `ANIM` posicionado pela matriz extraída; espelho `scale.x = LastDirX` → Verify: nenhum frame duplicado; pivô estável
+- [ ] Piscar de imunidade (alpha 0.2, timers 3/1) → Verify: visível ao spawnar
+
+### Fase 4 — Câmera seguindo jogadores
+- [ ] Port de `GetCamArea` (bounds dos jogadores + `sizeIncrease 40`) ligado ao `Camera.ts` → Verify: câmera enquadra 2 jogadores sem sair de `mapArea`
+- [ ] Debug manual só com tecla de toggle → Verify: modo AUTO por padrão
+
+### Fase 5 — Combate corpo a corpo e dano
+- [ ] Soco/combo (`MeleeAnimation_0N`), chute, jump kick (`JumpKickDamage 4`), stun, knockdown, stagger → Verify: Billy derruba Boris parado
+- [ ] Hitareas a partir de `DefineSprite_409_player_hitarea` → Verify: hitbox debug alinhada à animação
+- [ ] HP/morte (`DEATH_KNEEL` → queda) → Verify: round termina
+
+### Fase 6 — Armas e projéteis
+- [ ] `WeaponRegistry` gerado de `Weapons.as`/`Data/Weapons` (dano, cadência, munição, `FireSequence`, `AnimType`) → Verify: testes de tabela
+- [ ] Mira (`aim_<AnimType>`, `ANIM_WPN.rotation = CurrentAimPitch`), spawn de armas (`WeaponSpawn.as`) → Verify: pegar pistola e mirar
+- [ ] `ProjectilesUpdater` (raycast, penetração em madeira, ricochete, deflexão melee) → Verify: tiro quebra caixa
+
+### Fase 7 — Destruição, explosões, fogo
+- [ ] `Deconstructer.as` (debris), `Explosions.as` (raio, impulso radial, cadeia de barris), `Fires.as` (`BurnState`) → Verify: barril explosivo detona vizinho
+
+### Fase 8 — HUD e áudio
+- [ ] `PlayerBars.as` (HP com `_healthBarSpeed 4`, energia, arma) → Verify: barras idênticas ao Ruffle
+- [ ] `Sounds.as` com os 74 sons (Web Audio; pan pela câmera) → Verify: tiro/soco audíveis
+
+### Fase 9 — IA
+- [ ] `PathGrid.as` + `BotState.as` (ticks 200/300/4000 ms, `BotDodgeBullet`, dificuldades) → Verify: Boris luta sozinho contra Billy
+
+### Fase 10 — Conteúdo completo
+- [ ] Demais mapas de `Maps.as`, `Portals.as`, `Slowmo.as`, `Scoreboard*`, `MenuMain.as` → Verify: partida completa menu→round→placar
+
+### Fase X — Verificação final
+- [ ] `npm run build` sem erros · `npx vitest run` verde · `tsc --noEmit` limpo
+- [ ] Comparação lado a lado com Ruffle por mapa (screenshot + gravação)
+- [ ] 60 FPS de render estável (Performance panel) com 4 jogadores
+
+---
+
+## 5. Estratégia de Testes
+- **Unit (Vitest):** ports puros — `PlayerState`, seleção de label, `ProgressAnimation`, tabelas de armas, `GetCamArea`.
+- **Integração:** mundo planck headless — caixa cai X px em N ticks; jogador pula altura esperada.
+- **Referência visual:** Ruffle rodando o SWF original; mesmo input, comparar screenshots.
+
+## 6. Riscos
+
+| Risco | Impacto | Mitigação |
+|-------|---------|-----------|
+| Sub-sprites `ANIM` difíceis de exportar | Bloqueia Fase 3 | Fase 1 primeiro; fallback: renderizar SWF→PNG por frame no Ruffle |
+| Box2DFlash 2.0 ≠ planck (v2.x) | Física levemente diferente | Testes de integração calibrados contra Ruffle |
+| `Player.as` (325 KB) muito grande | Port lento/erros | Portar por subsistema, citar linhas, teste por subsistema |
+| Escopo enorme | Abandono | Fases jogáveis incrementais; Fase 3 já entrega "Billy jogável" |
+
+## 7. Dúvidas abertas (resolver investigando o AS3)
+- [ ] Corpo do jogador: dinâmico Box2D ou controlador cinemático próprio? (`Player.as`)
+- [ ] Valor de `m_iterations` (`GameMain.as`)
+- [ ] Cam.as: atualiza a 30 Hz junto da lógica? (assumir sim até provar)
+- [ ] Mapeamento exato de teclas P1/P2 (`InputKeyboard.as`, `Options.as`)
+
+## Concluído quando
+Partida Billy vs Boris (bot) no Storage é indistinguível do Flash no Ruffle em movimento, animação, câmera, combate, armas, HUD e som.
