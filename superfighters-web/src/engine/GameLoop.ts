@@ -38,11 +38,12 @@ export class GameLoop {
 
   /**
    * Inicia o loop de jogo.
+   * @param initialTimeMs Timestamp inicial opcional (padrão: performance.now())
    */
-  public start(): void {
+  public start(initialTimeMs?: number): void {
     if (this._isRunning) return;
     this._isRunning = true;
-    this._lastTime = performance.now();
+    this._lastTime = initialTimeMs !== undefined ? initialTimeMs : performance.now();
     this._accumulator = 0;
   }
 
