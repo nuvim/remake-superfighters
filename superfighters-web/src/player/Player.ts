@@ -147,85 +147,135 @@ export class Player {
   // LOCOMOÇÃO CINEMÁTICA E AJUSTE DE RAMPA (Player.as:3883-4627)
   // =========================================================================
 
-  /**
-   * MovePlayer 1:1 com Player.as:3883-3932.
-   * Desloca o jogador horizontalmente em micro-passos de 0.1 px,
-   * permitindo subir rampas suavemente sem engasgar e sem cair pelo chão.
-   */
-  public movePlayer(dirX: number, speed: number, map: StorageMap): void {
-    if (dirX === 0) return;
-    this.state.lastDirX = dirX;
-    this.state.movingDirectionX = dirX;
+  /** Port de Player.as:8015-8032 WorldCollisionHead
+   *  PARIDADE: NÃO VERIFICADA */
+  public worldCollisionHead(map: StorageMap): boolean {
+    if (
+      map.hitTestWorld(this.state.posX, this.state.posY - this.state.playerHeight, false) &&
+      (map.hitTestWorld(this.state.posX - this.state.playerEdgeDistance, this.state.posY - this.state.playerHeight, false) ||
+       map.hitTestWorld(this.state.posX + this.state.playerEdgeDistance, this.state.posY - this.state.playerHeight, false))
+    ) {
+      return true;
+    }
+    let loc1: number = 4;
+    while (loc1 <= this.state.playerHeight - 2) {
+      if (
+        map.hitTestWorld(this.state.posX - this.state.playerEdgeDistance, this.state.posY - loc1, false) &&
+        map.hitTestWorld(this.state.posX, this.state.posY - loc1, false) &&
+        map.hitTestWorld(this.state.posX + this.state.playerEdgeDistance, this.state.posY - loc1, false)
+      ) {
+        return true;
+      }
+      loc1 += 2;
+    }
+    return false;
+  }
 
-    const steps = Math.round(Math.abs(speed * 10));
-    const stepDx = dirX * 0.1;
+  /** Port de Player.as:3883-3932 MovePlayer
+   *  PARIDADE: NÃO VERIFICADA (verificar com golden walk_right_flat)
+   *  NÃO PORTADO: Staggering (3885), WallJumping (3887), Kneeling/Roll (3908) */
+  public movePlayer(param1: number, param2: number, map: StorageMap): void {
+    if (param1 === 0) return;
+    this.state.lastDirX = param1;
+    this.state.movingDirectionX = this.state.lastDirX;
 
-    for (let s = 1; s <= steps; s++) {
-      // 1. Verificar colisão com parede ou caixa na altura da cintura
-      if (this.walkCollision(dirX, map)) {
-        // Tentar empurrar objeto dinâmico se houver contato
+    // Player.as:3916: var _loc3_:int = Math.abs(param2 * 10);
+    const loc3: number = Math.trunc(Math.abs(param2 * 10));
+    // Player.as:232 / GameMain.as:151: this._game_speed = 1.0 (constante 1 por enquanto a 30Hz)
+    const gameSpeed: number = 1.0;
+    // Player.as:3917: var _loc4_:Number = this._PlayerState.MovingDirectionX * 0.1;
+    const loc4: number = this.state.movingDirectionX * 0.1;
+
+    let loc5: number = 1;
+    while (loc5 <= loc3) {
+      // Player.as:3921: if(this.WalkCollision(this._PlayerState.MovingDirectionX,this._PlayerState.Jumping)) return;
+      if (this.walkCollision(this.state.movingDirectionX, map)) {
         const bodyAhead = map.getDynamicBodyAt(
-          this.state.posX + dirX * (this.state.playerEdgeDistance + 4),
+          this.state.posX + this.state.movingDirectionX * (this.state.playerEdgeDistance + 4),
           this.state.posY - 8
         );
         if (bodyAhead) {
-          map.pushBody(bodyAhead, dirX, this.state.sprinting ? 2.5 : 1.2);
+          map.pushBody(bodyAhead, this.state.movingDirectionX, this.state.sprinting ? 2.5 : 1.2);
         }
         return;
       }
-
-      // 2. Avançar micro-passo de 0.1 px
-      this.state.posX += stepDx;
-
-      // 3. Se estiver no chão, ajustar altura na rampa/degrau
+      // Player.as:3925: this._this_x += _loc4_ * this._game_speed;
+      this.state.posX += loc4 * gameSpeed;
+      // Player.as:3926: if(this._PlayerState.OnGround) this.UpdateSimpleGroundMovement(false);
       if (this.state.isGrounded) {
         this.updateSimpleGroundMovement(false, map);
       }
+      loc5++;
     }
   }
 
-  /**
-   * UpdateSimpleGroundMovement 1:1 com Player.as:4551-4627.
-   * O algoritmo canônico que mantém o lutador colado às rampas e solos irregulares:
-   * - Se o pé penetrar o solo (subindo rampa): eleva posY de 0.1 em 0.1 px até desobstruir.
-   * - Se o pé perder contato momentâneo (descendo rampa): desce posY de 0.1 em 0.1 px até tocar o chão.
-   * - Se não houver solo num raio de PlayerEdgeDistance (6 px): inicia queda balística.
-   */
-  public updateSimpleGroundMovement(isFull: boolean, map: StorageMap): void {
+  /** Port de Player.as:4551-4626 UpdateSimpleGroundMovement
+   *  PARIDADE: NÃO VERIFICADA (verificar com golden walk_up_stair02)
+   *  NÃO PORTADO: Staggering (4596, 4609), Fall(false) (4598, 4611), CheckAimDrop (4608) */
+  public updateSimpleGroundMovement(param1: boolean, map: StorageMap): void {
+    let loc2: number = 0;
+    // Player.as:4554: if(this.CollisionFeetMid(0,1))
     if (this.collisionFeetMid(0, 1, map)) {
+      // Player.as:4556: if(this.CollisionFeetMid(-1,1))
       if (this.collisionFeetMid(-1, 1, map)) {
-        let loc2 = 0;
-        while (this.collisionFeetMid(-1, 1, map) && loc2 < 100) {
+        loc2 = 0;
+        // Player.as:4559: while(Boolean(this.CollisionFeetMid(-1,1)) && !this.WorldCollisionHead() && _loc2_ < 100)
+        while (Boolean(this.collisionFeetMid(-1, 1, map)) && !this.worldCollisionHead(map) && loc2 < 100) {
           this.state.posY -= 0.1;
-          loc2++;
+          loc2 += 1;
         }
+        // Player.as:4564: if(_loc2_ > 0) this._this_y += 0.1;
         if (loc2 > 0) {
           this.state.posY += 0.1;
         }
       }
-      if (isFull) {
+      // Player.as:4569: if(param1) this.UpdateDynamicMovement();
+      if (param1) {
         this.updateDynamicMovement(map);
       }
-    } else if (this.canLandInMid(map)) {
+    }
+    // Player.as:4574: else if(this.CanLandInMid())
+    else if (this.canLandInMid(map)) {
+      // Player.as:4576: if(this._PlayerState.OnGround)
       if (this.state.isGrounded) {
+        // Player.as:4578: while(!this.CollisionFeetMid()) this._this_y += 0.1;
         while (!this.collisionFeetMid(0, 0, map)) {
           this.state.posY += 0.1;
         }
-        if (isFull) {
+        // Player.as:4582: if(param1) this.UpdateDynamicMovement();
+        if (param1) {
           this.updateDynamicMovement(map);
         }
       }
-    } else if (this.collisionFeetSides(0, map)) {
-      // Apoiado na beirada de uma plataforma
-      if (isFull) {
+    }
+    // Player.as:4588: else if(this.CollisionFeetSides())
+    else if (this.collisionFeetSides(0, map)) {
+      // Player.as:4590: if(param1) this.UpdateDynamicMovement();
+      if (param1) {
         this.updateDynamicMovement(map);
       }
-    } else {
-      // Deixou o solo — transição imediata para queda
+      // Player.as:4594: if(!this.CollisionFeetSides())
+      if (!this.collisionFeetSides(0, map)) {
+        // TODO(AS3 Player.as:4596): ramo Staggering não portado
+        // Player.as:4602: this._PlayerState.Jumping = true;
+        this.state.jumping = true;
+        this.state.isGrounded = false;
+      }
+    }
+    // Player.as:4606: else
+    else {
+      // TODO(AS3 Player.as:4608): this.CheckAimDrop() não portado
+      // TODO(AS3 Player.as:4609): ramo Staggering não portado
+      // Player.as:4615: if(this._standingOnObject != null)
+      const bodyBelow = map.getDynamicBodyAt(this.state.posX, this.state.posY + 2);
+      if (bodyBelow != null) {
+        const vel = bodyBelow.getLinearVelocity();
+        this.state.airVelocityY = vel.y;
+        this.state.airVelocityX = vel.x;
+      }
+      // Player.as:4624: this._PlayerState.Jumping = true;
+      this.state.jumping = true;
       this.state.isGrounded = false;
-      this.state.jumping = false;
-      this.state.falling = true;
-      this.state.airVelocityY = 0.1;
     }
   }
 

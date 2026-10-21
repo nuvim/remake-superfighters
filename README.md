@@ -7,7 +7,7 @@
 ## 📖 Documentação Importante
 
 - 🔍 **[CONTEXTO_E_DIFICULDADES.md](./CONTEXTO_E_DIFICULDADES.md)**: Documento aprofundado para análise arquitetural, descrevendo o funcionamento do motor original do Flash, os desafios de física, colisão de rampas, matrizes de animação e perguntas abertas para revisão por IA e engenheiros.
-- 📋 **[superfighters-remake-plan.md](./superfighters-remake-plan.md)**: Plano de desenvolvimento mestre dividido em Fases (0 a 10 + X), com checklist de tarefas concluídas e pendentes.
+- 📋 **[superfighters-remake-plan.md](./superfighters-remake-plan.md)**: Plano Mestre de Paridade (único plano ativo), com diagnóstico técnico das divergências, regras estritas de port, estratégia do oráculo golden e roteiro fase a fase.
 - 🛠️ **[tools/README.md](./tools/README.md)**: Guia dos scripts de extração do SWF e simuladores de física em Python.
 
 ---

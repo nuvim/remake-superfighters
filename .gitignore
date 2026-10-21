@@ -23,6 +23,7 @@ __pycache__/
 
 # Large binaries / temporary archives
 superfighters-flash-game/*.zip
+archive/superfighters-flash-game/*.zip
 tools/ffdec.zip
 tools/extract/swf.xml
 tools/extract/temp/

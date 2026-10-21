@@ -44,6 +44,7 @@ export class StorageMap {
   public showHitboxes: boolean = false;
 
   private staticGroundBodies: planck.Body[] = [];
+  private stairBodies: planck.Body[] = [];
 
   constructor(
     world: planck.World,
@@ -126,24 +127,23 @@ export class StorageMap {
     { material: 'metal', x: 60 / 30, y: 139 / 30, angle: 0, width: 12 / 30, height: 83 / 30, type: 'LADDER' }
   ];
 
-  public readonly staticPolysPixel: [number, number][][] = [
-    // stair02 (x: 127 a 157, y: 255 a 273) com IncreaseCorners (0.5px expansão de MapPremadeItems.as:2807)
-    [
-      [126.5, 254.5],
-      [133.5, 254.5],
-      [157.5, 272.5],
-      [157.5, 335.5],
-      [126.5, 335.5]
-    ],
-    // stair01 (x: 304 a 334, y: 273 a 255) com IncreaseCorners
-    [
-      [303.5, 272.5],
-      [327.5, 254.5],
-      [334.5, 254.5],
-      [334.5, 335.5],
-      [303.5, 335.5]
-    ]
-  ];
+  /**
+   * staticPolysPixel derivado dos fixtures dos corpos das escadas (vértices do corpo x 30).
+   * PARIDADE: verificada por tests/StairGeometry.test.ts
+   */
+  public get staticPolysPixel(): [number, number][][] {
+    return this.stairBodies.map((body) => {
+      const fixture = body.getFixtureList();
+      if (!fixture) return [];
+      const poly = fixture.getShape() as planck.Polygon;
+      const pts: [number, number][] = [];
+      for (let i = 0; i < poly.m_count; i++) {
+        const wp = body.getWorldPoint(poly.m_vertices[i]);
+        pts.push([wp.x * 30.0, wp.y * 30.0]);
+      }
+      return pts;
+    });
+  }
 
   /**
    * Cria todas as caixas de colisão de solo e plataformas nuvem (CLOUD)
@@ -270,6 +270,7 @@ export class StorageMap {
       });
 
       this.staticGroundBodies.push(body);
+      this.stairBodies.push(body);
     }
   }
 
@@ -556,89 +557,6 @@ export class StorageMap {
       planck.Vec2(dirX * power, -0.1),
       body.getPosition()
     );
-  }
-
-  /**
-   * Verifica colisão dos pés do jogador com o solo estático e plataformas CLOUD (Player.as:8206-8236).
-   */
-  public checkFeetCollision(
-    px: number,
-    py: number,
-    isFallingThroughCloud: boolean = false
-  ): { collided: boolean; groundY: number } {
-    for (const b of this.groundBoxes) {
-      if (b.type === 'LADDER') continue;
-
-      const minX = (b.x - b.width / 2) * 30.0;
-      const maxX = (b.x + b.width / 2) * 30.0;
-      const minY = (b.y - b.height / 2) * 30.0;
-      const maxY = (b.y + b.height / 2) * 30.0;
-
-      if (b.type === 'NONE') {
-        // Bloco de solo ou metal sólido
-        if (px >= minX && px <= maxX && py >= minY - 2 && py <= maxY) {
-          return { collided: true, groundY: minY };
-        }
-      } else if (b.type === 'CLOUD' && !isFallingThroughCloud) {
-        // Plataforma nuvem permeável: só apoia se vier de cima
-        if (px >= minX && px <= maxX && py >= minY - 3 && py <= minY + 7) {
-          return { collided: true, groundY: minY };
-        }
-      }
-    }
-
-    // 2. Rampas inclinadas de escada (stair02 e stair01 de Maps.as:2362-2366)
-    // stair02: x de 127 a 157. Conecta o piso esquerdo (y=255) ao piso rebaixado (y=273)
-    if (px >= 127 && px <= 157) {
-      const rampY = px <= 133 ? 255 : 255 + (px - 133) * 0.75;
-      if (py >= rampY - 4 && py <= rampY + 14) {
-        return { collided: true, groundY: rampY };
-      }
-    }
-
-    // stair01: x de 304 a 334. Conecta o piso rebaixado (y=273) ao piso direito (y=255)
-    if (px >= 304 && px <= 334) {
-      const rampY = px <= 328 ? 273 - (px - 304) * 0.75 : 255;
-      if (py >= rampY - 4 && py <= rampY + 14) {
-        return { collided: true, groundY: rampY };
-      }
-    }
-
-    return { collided: false, groundY: py };
-  }
-
-  /**
-   * Verifica colisão lateral do corpo do jogador com paredes sólidas.
-   */
-  public checkWallCollision(
-    px: number,
-    py: number,
-    halfWidth: number = 6,
-    height: number = 18
-  ): { collided: boolean; pushX: number } {
-    const left = px - halfWidth;
-    const right = px + halfWidth;
-    const top = py - height;
-    const bottom = py - 2;
-
-    for (const b of this.groundBoxes) {
-      if (b.type !== 'NONE') continue; // Só blocos sólidos barram lateralmente
-
-      const minX = (b.x - b.width / 2) * 30.0;
-      const maxX = (b.x + b.width / 2) * 30.0;
-      const minY = (b.y - b.height / 2) * 30.0;
-      const maxY = (b.y + b.height / 2) * 30.0;
-
-      // Teste de intersecção AABB
-      if (right > minX && left < maxX && bottom > minY && top < maxY) {
-        // Empurrar para fora do lado mais próximo
-        const pushLeft = minX - right;
-        const pushRight = maxX - left;
-        const pushX = Math.abs(pushLeft) < Math.abs(pushRight) ? pushLeft : pushRight;
-        return { collided: true, pushX };
-      }
-    }
-    return { collided: false, pushX: 0 };
   }
 
   /**

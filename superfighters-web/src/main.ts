@@ -129,9 +129,9 @@ async function bootstrap() {
   });
 
   // 9. Game Loop com lógica a 30 Hz fixo (GameMain.as:847, m_timeStep = 1/30)
-  // e m_iterations = 20 (GameMain.as:152)
-  const VELOCITY_ITERATIONS = 10;
-  const POSITION_ITERATIONS = 10;
+  // e m_iterations = 20 (GameMain.as:152). Registrado: o solver ainda é Planck.js até a Fase E.
+  const VELOCITY_ITERATIONS = 20; // GameMain.as:152
+  const POSITION_ITERATIONS = 20; // GameMain.as:152
 
   const gameLoop = new GameLoop();
   gameLoop.onLogicUpdate = (dt) => {
