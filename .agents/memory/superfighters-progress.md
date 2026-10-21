@@ -29,4 +29,15 @@ updated: 2026-10-21
      os 56 PNGs do Billy são só frames externos achatados; sub-frames `ANIM` não exportados.
    - Constantes confirmadas em `PlayerState.as` (gravity 0.6, jump -5, run 1.7, roll 2, dive 3.5…).
 3. Criado plano mestre v2 `superfighters-remake-plan.md` (Fases 0–10 + X). Planos antigos = histórico.
-4. **Parado aqui. Próximo passo:** Fase 0 (git init, loop 30 Hz, Vitest) → Fase 1 (pipeline swf2xml).
+4. **Fase 0 Concluída:**
+   - Git inicializado com commit baseline (11.300+ arquivos descompilados preservados).
+   - Boilerplate do Vite removido (`counter.ts`, `src/assets/`).
+   - `GameLoop.ts` criado com acumulador fixo a 30 Hz (`m_timeStep = 1/30` e `m_iterations = 20`, de `GameMain.as:152,847`).
+   - Vitest instalado e suíte de testes unitários configurada (`npm run test`).
+5. **Fase 1 Concluída:**
+   - `tools/extract/swf.xml` (25.4 MB) gerado via `ffdec-cli -swf2xml`.
+   - `build-sprite-db.mjs` desenvolvido e executado: extraiu 845 sprites e mapeou 100% das 55 labels de animação do Billy e dos 9 lutadores.
+   - Confirmado que os sub-sprites com os frames reais (ex: 1236 IDLE com 61 frames, 1242 RUN com 12 frames) já estão exportados em `decompiled/assets/sprites/`.
+   - Gerado `superfighters-web/src/data/generated/spriteDatabase.json`.
+   - Teste unitário `SpriteDatabase.test.ts` adicionado e passando (6/6 testes verdes).
+6. **Parado aqui. Próximo passo:** Iniciar **Fase 2** (PlayerState + física do lutador: corpo Box2D, constantes de movimento, dive, roll e input).

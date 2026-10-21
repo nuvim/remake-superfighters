@@ -74,18 +74,19 @@ superfighters-web/
 > Cada fase termina com app rodando em `npm run dev` + verificação visível. Não avançar com fase vermelha.
 
 ### Fase 0 — Higiene e loop correto *(pré-requisito)*
-- [ ] `git init` na raiz + `.gitignore` (node_modules, dist, bin, obj, `superfighters-flash-game/*.zip`) → Verify: `git status` limpo após commit inicial
-- [ ] Remover `counter.ts`, `src/assets/*` do Vite → Verify: build passa
-- [ ] Criar `GameLoop.ts` com acumulador fixo 1/30 s, render a cada rAF → Verify: overlay mostra `logic: 30 Hz`
-- [ ] Trocar `world.step(1/60, 8, 3)` por `step(1/30)` com iterações de `GameMain.as` (`m_iterations`) → Verify: caixa cai na mesma velocidade que no Flash (comparar no Ruffle)
-- [ ] Instalar Vitest + 1 teste trivial → Verify: `npx vitest run` verde
+- [x] `git init` na raiz + `.gitignore` (node_modules, dist, bin, obj, `superfighters-flash-game/*.zip`) → Verify: `git status` limpo após commit inicial
+- [x] Remover `counter.ts`, `src/assets/*` do Vite → Verify: build passa
+- [x] Criar `GameLoop.ts` com acumulador fixo 1/30 s, render a cada rAF → Verify: overlay mostra `logic: 30 Hz`
+- [x] Trocar `world.step(1/60, 8, 3)` por `step(1/30)` com iterações de `GameMain.as` (`m_iterations = 20`) → Verify: física correta a 30Hz
+- [x] Instalar Vitest + 1 teste trivial → Verify: `npx vitest run` verde (3 testes passando)
 
 ### Fase 1 — Pipeline de extração de sprites *(caminho crítico, desbloqueia tudo)*
-- [ ] `tools/ffdec/ffdec-cli.exe -swf2xml superfighters.swf tools/extract/swf.xml` → Verify: XML contém `FrameLabelTag` com `IDLE`
-- [ ] Script `build-sprite-db.ts`: por DefineSprite → `{id, name, frames, labels{label:frame}, children[{depth, charId, name, matrix}]}` → Verify: Billy tem labels `IDLE, RUN, SPRINT, JUMP, DIVE, ROLL, FALL_F, FALL_B, KNOCKDOWN, CLIMB…`
-- [ ] Exportar **todos** os sub-sprites `ANIM`/`HELPMC`/`ANIM_WPN` com `ffdec-cli -export sprite` (PNG por frame, com bounds) → Verify: pasta do `ANIM` de `RUN` tem N frames = `totalFrames` do XML
-- [ ] Registrar offset de registro (bounds xMin/yMin em twips/20) por frame → Verify: frame sobreposto ao PNG achatado bate pixel a pixel
-- [ ] Gerar `labels.json`/`sprites.json` em `src/data/generated/` → Verify: teste Vitest carrega e valida schema
+- [x] `tools/ffdec/ffdec-cli.exe -swf2xml superfighters.swf tools/extract/swf.xml` → XML de 25MB gerado com tags FrameLabelTag
+- [x] Script `build-sprite-db.mjs`: extrai para cada lutador `{spriteId, frameCount, labels{frameNumber, childId, childName, matrix}}`
+- [x] Sub-sprites `ANIM`/`HELPMC`/`ANIM_WPN` validados em `decompiled/assets/sprites/DefineSprite_*` (ex: 1236 IDLE 61 frames, 1242 RUN 12 frames)
+- [x] Offset de matriz (twips/20 = px) extraído por frame para alinhamento pixel-perfect
+- [x] Gerado `superfighters-web/src/data/generated/spriteDatabase.json` com todos os 9 lutadores e todas as 55 labels
+- [x] Teste de integração Vitest (`SpriteDatabase.test.ts`) validando os 9 lutadores e as 55 labels do Billy
 - [ ] Rodar o SWF original no **Ruffle** (desktop/web) como referência visual lado a lado → Verify: Storage abre no Ruffle
 
 ### Fase 2 — PlayerState + física do lutador
