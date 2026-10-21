@@ -54,4 +54,10 @@ updated: 2026-10-21
    - Pré-carregamento assíncrono de animações essenciais adicionado ao bootstrap de `main.ts`.
    - 16 testes unitários em Vitest 100% passando (`npm run test`).
    - Verificação visual no navegador real via `browser_subagent` com captura de screenshots confirmando Billy em pé e andando no mapa Storage com animação fluida, hitboxes perfeitas e sem erros de console.
-8. **Próximo passo:** Iniciar **Fase 4** (Câmera seguindo jogadores dinamicamente: cálculo de bounding box `GetCamArea` de múltiplos lutadores com padding e zoom suave).
+8. **Correção de Bugs Críticos relatados pelo usuário:**
+   - **Queda ao passar da escada:** `StorageMap.ts` ignorava os polígonos inclinados de rampa `stair02` (x: 127 a 157) e `stair01` (x: 304 a 334). Portada a fórmula de rampa de `Maps.as:2362-2366` (`dy = (x - 133) * 0.75` para stair02 e `dy = -(x - 304) * 0.75` para stair01). Criado `StorageMap.test.ts` testando varredura pixel a pixel de x=60 a x=450 comprovando 100% de contato no chão.
+   - **Sprites mal recortados / desalinhados:** O script `build-sprite-db.mjs` ignorava matrizes quando `hasScale="false"`, zerando o offset de translação dos sub-sprites. O script foi corrigido para extrair `translateX` e `translateY` canônicos independentemente da escala e o `spriteDatabase.json` foi regenerado. Em `CharacterSkin.ts`, removido `anchor.set(0.5, 1.0)` hardcoded e adotado `anchor.set(0, 0)` posicionado no offset exato de cada sub-frame extraído da matriz do Flash.
+   - **Testes Unitários:** 21/21 testes passando no Vitest (`npm run test`).
+   - **Validação no Navegador:** Executado teste interativo com `browser_subagent` no Vite (`localhost:5173`). Billy andou para a direita, desceu a rampa suavemente (chegou em x=162, y=273 sem cair no poço), pulou sobre a plataforma e retornou à esquerda. Zero erros no console.
+9. **Próximo passo:** Iniciar **Fase 4** (Câmera dinâmica: port de `GetCamArea` de `GameMain.as:1450-1490` / `Cam.as:112-143`, bounding box dinâmica de lutadores, padding de 40px, zoom e interpolação suave).
+

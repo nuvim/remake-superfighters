@@ -23,6 +23,9 @@ interface SubSpriteDef {
   dirName: string;
   frameCount: number;
   basePath: string;
+  offsetX?: number;
+  offsetY?: number;
+  frames?: { x: number; y: number }[];
 }
 
 /**
@@ -58,9 +61,9 @@ export class CharacterSkin {
     this.animContainer = new Container();
     this.container.addChild(this.animContainer);
 
-    // Sprite que exibe o frame ativo com anchor nos pés (centralizado horizontalmente, base no chão)
+    // Sprite que exibe o frame ativo com posicionamento canônico Flash (anchor 0, 0)
     this.sprite = new Sprite(fallbackTexture || Texture.EMPTY);
-    this.sprite.anchor.set(0.5, 1.0);
+    this.sprite.anchor.set(0, 0);
     this.animContainer.addChild(this.sprite);
   }
 
@@ -134,6 +137,13 @@ export class CharacterSkin {
     if (subSprite) {
       const currentFrame = Math.max(1, Math.min(totalFrames, anim.currentFrameInt));
       const texturePath = `${subSprite.basePath}${currentFrame}.png`;
+
+      // Posicionar o sprite pelo offset canônico extraído do Flash para o frame ativo
+      const frameOffset = subSprite.frames?.[currentFrame - 1] || {
+        x: subSprite.offsetX ?? 0,
+        y: subSprite.offsetY ?? 0
+      };
+      this.sprite.position.set(frameOffset.x, frameOffset.y);
 
       const cached = this._textureCache.get(texturePath);
       if (cached) {

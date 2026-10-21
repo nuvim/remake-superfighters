@@ -97,15 +97,16 @@ async function main() {
     }
 
     // Matrix dentro de PlaceObject2Tag
-    if (currentPlaceObject) {
-      const matrixMatch = trimmed.match(/<matrix[^>]*scaleX="([^"]+)"[^>]*scaleY="([^"]+)"[^>]*translateX="([^"]+)"[^>]*translateY="([^"]+)"/);
-      if (matrixMatch) {
-        currentPlaceObject.matrix.scaleX = parseFloat(matrixMatch[1]);
-        currentPlaceObject.matrix.scaleY = parseFloat(matrixMatch[2]);
-        // Em SWF, translateX e translateY estão em twips (1 pixel = 20 twips)
-        currentPlaceObject.matrix.x = parseFloat(matrixMatch[3]) / 20.0;
-        currentPlaceObject.matrix.y = parseFloat(matrixMatch[4]) / 20.0;
-      }
+    if (currentPlaceObject && trimmed.includes('<matrix')) {
+      const scaleXMatch = trimmed.match(/scaleX="([^"]+)"/);
+      const scaleYMatch = trimmed.match(/scaleY="([^"]+)"/);
+      const txMatch = trimmed.match(/translateX="([^"]+)"/);
+      const tyMatch = trimmed.match(/translateY="([^"]+)"/);
+
+      if (scaleXMatch) currentPlaceObject.matrix.scaleX = parseFloat(scaleXMatch[1]);
+      if (scaleYMatch) currentPlaceObject.matrix.scaleY = parseFloat(scaleYMatch[1]);
+      if (txMatch) currentPlaceObject.matrix.x = parseFloat(txMatch[1]) / 20.0;
+      if (tyMatch) currentPlaceObject.matrix.y = parseFloat(tyMatch[1]) / 20.0;
     }
 
     // ShowFrameTag — avança o frame
@@ -169,14 +170,24 @@ async function main() {
         labels: sprite.labels
       };
 
-      // Registrar os sub-sprites referenciados
+      // Registrar os sub-sprites referenciados com suas matrizes canônicas
       for (const [label, info] of Object.entries(sprite.labels)) {
         if (info.childId && spriteFrameCounts[info.childId]) {
+          const subSpriteObj = sprites[info.childId];
+          const firstFrameMatrix = subSpriteObj?.frames[0]?.child?.matrix || { x: 0, y: 0 };
+          const frameMatrices = (subSpriteObj?.frames || []).map(f => ({
+            x: f.child?.matrix?.x ?? firstFrameMatrix.x,
+            y: f.child?.matrix?.y ?? firstFrameMatrix.y
+          }));
+
           database.subSprites[info.childId] = {
             spriteId: info.childId,
             dirName: spriteFrameCounts[info.childId].dirName,
             frameCount: spriteFrameCounts[info.childId].frameCount,
-            basePath: `/assets/sprites/${spriteFrameCounts[info.childId].dirName}/`
+            basePath: `/assets/sprites/${spriteFrameCounts[info.childId].dirName}/`,
+            offsetX: firstFrameMatrix.x,
+            offsetY: firstFrameMatrix.y,
+            frames: frameMatrices
           };
         }
       }

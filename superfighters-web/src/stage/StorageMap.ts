@@ -410,6 +410,24 @@ export class StorageMap {
         }
       }
     }
+
+    // 2. Rampas inclinadas de escada (stair02 e stair01 de Maps.as:2362-2366)
+    // stair02: x de 127 a 157. Conecta o piso esquerdo (y=255) ao piso rebaixado (y=273)
+    if (px >= 127 && px <= 157) {
+      const rampY = px <= 133 ? 255 : 255 + (px - 133) * 0.75;
+      if (py >= rampY - 4 && py <= rampY + 14) {
+        return { collided: true, groundY: rampY };
+      }
+    }
+
+    // stair01: x de 304 a 334. Conecta o piso rebaixado (y=273) ao piso direito (y=255)
+    if (px >= 304 && px <= 334) {
+      const rampY = px <= 328 ? 273 - (px - 304) * 0.75 : 255;
+      if (py >= rampY - 4 && py <= rampY + 14) {
+        return { collided: true, groundY: rampY };
+      }
+    }
+
     return { collided: false, groundY: py };
   }
 

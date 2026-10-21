@@ -35,13 +35,15 @@ describe('Sprite Database (Fase 1 Ground Truth)', () => {
     }
   });
 
-  it('should have valid sub-sprites with positive frame counts', () => {
+  it('should have valid sub-sprites with positive frame counts and canonical offsets', () => {
     const subSprites = spriteDb.subSprites;
     expect(Object.keys(subSprites).length).toBeGreaterThan(10);
 
     for (const [id, info] of Object.entries(subSprites)) {
       expect(info.frameCount).toBeGreaterThan(0);
       expect(info.basePath).toMatch(/^\/assets\/sprites\/DefineSprite_\d+\/$/);
+      expect(typeof info.offsetX).toBe('number');
+      expect(typeof info.offsetY).toBe('number');
     }
   });
 });

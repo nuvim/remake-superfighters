@@ -101,9 +101,11 @@ superfighters-web/
 - [x] Port literal de `UpdateAnimation()` (ordem de prioridade canônica dos estados, `PlayerAnimation.as:84-267`) → Testado em `PlayerAnimation.test.ts`.
 - [x] `ShowAnimation()` com tabela de loop (`IDLE/RUN/SPRINT/CLIMB/STAGGER/GRABBED`), `DIVE` (rot 1.5), `FALL_B/F` (rot ∓10, inc ∓2, cap 36) → Testado em `PlayerAnimation.test.ts`.
 - [x] `ProgressAnimation(dt)` com `_current_frame` fracionário a 30Hz, `AnimationDone()` resetando flags e estados de ROLL/KNEEL/etc.
-- [x] `CharacterSkin.ts`: Container raiz + sub-container `ANIM` posicionado e transformado pelas matrizes extraídas de `spriteDatabase.json`; espelho horizontal instantâneo `scale.x = lastDirX` e anchor nos pés `(0.5, 1.0)` alinhado à hitbox.
+- [x] `CharacterSkin.ts`: Container raiz + sub-container `ANIM` posicionado e transformado pelas matrizes canônicas extraídas de `spriteDatabase.json`; espelho horizontal instantâneo `scale.x = lastDirX` e posicionamento dinâmico `(frameOffset.x, frameOffset.y)` com `anchor (0, 0)` eliminando jitter/recortes imperfeitos.
+- [x] Correção de rampas e escadas de `Maps.as:2362-2366` (`stair01` e `stair02`) em `StorageMap.ts`, garantindo que o jogador não caia pelo chão na transição da escada.
 - [x] Piscar de imunidade com alpha 0.2 e timers 3/1 de `PlayerAnimation.as:91-126`.
-- [x] Verificado visualmente no browser via `browser_subagent`: Billy renderizado no mapa Storage em IDLE ciclando 61 frames perfeitamente e caminhando à direita.
+- [x] 21 testes unitários em Vitest 100% passando (`npm run test`), incluindo varredura contínua de colisão de solo em `StorageMap.test.ts`.
+- [x] Verificado visualmente no browser via `browser_subagent`: Billy renderizado no mapa Storage em IDLE ciclando 61 frames perfeitamente, caminhando sobre a rampa sem cair, pulando e retornando à esquerda. Zero erros de console.
 
 ### Fase 4 — Câmera seguindo jogadores
 - [ ] Port de `GetCamArea` (bounds dos jogadores + `sizeIncrease 40`) ligado ao `Camera.ts` → Verify: câmera enquadra 2 jogadores sem sair de `mapArea`
