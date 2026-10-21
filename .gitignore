@@ -10,10 +10,16 @@ obj/
 
 # IDE & OS files
 .vs/
+.vscode/
 *.user
 *.suo
 .DS_Store
 Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
 
 # Large binaries / temporary archives
 superfighters-flash-game/*.zip
