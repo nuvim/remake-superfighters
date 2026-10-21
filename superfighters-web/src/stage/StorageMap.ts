@@ -73,68 +73,65 @@ export class StorageMap {
     this.renderDebugHitboxes();
   }
 
+  public readonly groundBoxes: GroundBoxDef[] = [
+    // Linha 2350
+    { material: 'ground', x: 176.5 / 30, y: 26.5 / 30, angle: 0, width: 351 / 30, height: 51 / 30, type: 'NONE' },
+    // Linha 2351
+    { material: 'ground', x: 431 / 30, y: 41.5 / 30, angle: 0, width: 184 / 30, height: 81 / 30, type: 'NONE' },
+    // Linha 2352
+    { material: 'ground', x: 345 / 30, y: 94 / 30, angle: 0, width: 12 / 30, height: 24 / 30, type: 'NONE' },
+    // Linha 2353
+    { material: 'ground', x: 495 / 30, y: 99.5 / 30, angle: 0, width: 56 / 30, height: 35 / 30, type: 'NONE' },
+    // Linha 2354
+    { material: 'ground', x: 411.5 / 30, y: 147 / 30, angle: 0, width: 145 / 30, height: 12 / 30, type: 'NONE' },
+    // Linha 2355
+    { material: 'ground', x: 503.5 / 30, y: 153 / 30, angle: 0, width: 39 / 30, height: 72 / 30, type: 'NONE' },
+    // Linha 2356
+    { material: 'ground', x: 495 / 30, y: 259 / 30, angle: 0, width: 56 / 30, height: 140 / 30, type: 'NONE' },
+    // Linha 2357
+    { material: 'ground', x: 475.5 / 30, y: 159 / 30, angle: 0, width: 17 / 30, height: 12 / 30, type: 'NONE' },
+    // Linha 2358
+    { material: 'ground', x: 27.5 / 30, y: 190.5 / 30, angle: 0, width: 53 / 30, height: 277 / 30, type: 'NONE' },
+    // Linha 2359
+    { material: 'metal', x: 104.5 / 30, y: 120 / 30, angle: 0, width: 73 / 30, height: 18 / 30, type: 'NONE' },
+    // Linha 2360
+    { material: 'ground', x: 90.5 / 30, y: 292 / 30, angle: 0, width: 73 / 30, height: 74 / 30, type: 'NONE' },
+    // Linha 2361
+    { material: 'ground', x: 230.5 / 30, y: 301 / 30, angle: 0, width: 147 / 30, height: 56 / 30, type: 'NONE' },
+    // Linha 2364
+    { material: 'ground', x: 400.5 / 30, y: 292 / 30, angle: 0, width: 133 / 30, height: 74 / 30, type: 'NONE' },
+
+    // Plataformas semi-sólidas (CLOUD)
+    // Linha 2367
+    { material: 'metal', x: 246 / 30, y: 145 / 30, angle: 0, width: 102 / 30, height: 2 / 30, type: 'CLOUD' },
+    // Linha 2368
+    { material: 'metal', x: 197 / 30, y: 167 / 30, angle: 0, width: 50 / 30, height: 2 / 30, type: 'CLOUD' },
+    // Linha 2369
+    { material: 'metal', x: 105 / 30, y: 184 / 30, angle: 0, width: 102 / 30, height: 2 / 30, type: 'CLOUD' },
+    // Linha 2370
+    { material: 'metal', x: 221.5 / 30, y: 208 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
+    // Linha 2371
+    { material: 'metal', x: 221.5 / 30, y: 230 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
+    // Linha 2372
+    { material: 'metal', x: 221.5 / 30, y: 252 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
+    // Linha 2373
+    { material: 'metal', x: 392.5 / 30, y: 212 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
+    // Linha 2374
+    { material: 'metal', x: 392.5 / 30, y: 234 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
+    // Linha 2375
+    { material: 'metal', x: 423 / 30, y: 190 / 30, angle: 0, width: 88 / 30, height: 2 / 30, type: 'CLOUD' },
+    // Linha 2376 (Rampa CLOUD inclinada)
+    { material: 'metal', x: 167 / 30, y: 196 / 30, angle: 0.7853981633974483, width: 34 / 30, height: 3 / 30, type: 'CLOUD' },
+    // Linha 2378 (Escada LADDER)
+    { material: 'metal', x: 60 / 30, y: 139 / 30, angle: 0, width: 12 / 30, height: 83 / 30, type: 'LADDER' }
+  ];
+
   /**
    * Cria todas as caixas de colisão de solo e plataformas nuvem (CLOUD)
    * copiadas literalmente de Maps.as:2350-2378.
    */
   private createStaticGeometry(): void {
-    // Ground Material: friction = 0.5, restitution = 0.2
-    // Metal Material: friction = 0.4, restitution = 0.1
-
-    const groundBoxes: GroundBoxDef[] = [
-      // Linha 2350
-      { material: 'ground', x: 176.5 / 30, y: 26.5 / 30, angle: 0, width: 351 / 30, height: 51 / 30, type: 'NONE' },
-      // Linha 2351
-      { material: 'ground', x: 431 / 30, y: 41.5 / 30, angle: 0, width: 184 / 30, height: 81 / 30, type: 'NONE' },
-      // Linha 2352
-      { material: 'ground', x: 345 / 30, y: 94 / 30, angle: 0, width: 12 / 30, height: 24 / 30, type: 'NONE' },
-      // Linha 2353
-      { material: 'ground', x: 495 / 30, y: 99.5 / 30, angle: 0, width: 56 / 30, height: 35 / 30, type: 'NONE' },
-      // Linha 2354
-      { material: 'ground', x: 411.5 / 30, y: 147 / 30, angle: 0, width: 145 / 30, height: 12 / 30, type: 'NONE' },
-      // Linha 2355
-      { material: 'ground', x: 503.5 / 30, y: 153 / 30, angle: 0, width: 39 / 30, height: 72 / 30, type: 'NONE' },
-      // Linha 2356
-      { material: 'ground', x: 495 / 30, y: 259 / 30, angle: 0, width: 56 / 30, height: 140 / 30, type: 'NONE' },
-      // Linha 2357
-      { material: 'ground', x: 475.5 / 30, y: 159 / 30, angle: 0, width: 17 / 30, height: 12 / 30, type: 'NONE' },
-      // Linha 2358
-      { material: 'ground', x: 27.5 / 30, y: 190.5 / 30, angle: 0, width: 53 / 30, height: 277 / 30, type: 'NONE' },
-      // Linha 2359
-      { material: 'metal', x: 104.5 / 30, y: 120 / 30, angle: 0, width: 73 / 30, height: 18 / 30, type: 'NONE' },
-      // Linha 2360
-      { material: 'ground', x: 90.5 / 30, y: 292 / 30, angle: 0, width: 73 / 30, height: 74 / 30, type: 'NONE' },
-      // Linha 2361
-      { material: 'ground', x: 230.5 / 30, y: 301 / 30, angle: 0, width: 147 / 30, height: 56 / 30, type: 'NONE' },
-      // Linha 2364
-      { material: 'ground', x: 400.5 / 30, y: 292 / 30, angle: 0, width: 133 / 30, height: 74 / 30, type: 'NONE' },
-
-      // Plataformas semi-sólidas (CLOUD)
-      // Linha 2367
-      { material: 'metal', x: 246 / 30, y: 145 / 30, angle: 0, width: 102 / 30, height: 2 / 30, type: 'CLOUD' },
-      // Linha 2368
-      { material: 'metal', x: 197 / 30, y: 167 / 30, angle: 0, width: 50 / 30, height: 2 / 30, type: 'CLOUD' },
-      // Linha 2369
-      { material: 'metal', x: 105 / 30, y: 184 / 30, angle: 0, width: 102 / 30, height: 2 / 30, type: 'CLOUD' },
-      // Linha 2370
-      { material: 'metal', x: 221.5 / 30, y: 208 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
-      // Linha 2371
-      { material: 'metal', x: 221.5 / 30, y: 230 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
-      // Linha 2372
-      { material: 'metal', x: 221.5 / 30, y: 252 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
-      // Linha 2373
-      { material: 'metal', x: 392.5 / 30, y: 212 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
-      // Linha 2374
-      { material: 'metal', x: 392.5 / 30, y: 234 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
-      // Linha 2375
-      { material: 'metal', x: 423 / 30, y: 190 / 30, angle: 0, width: 88 / 30, height: 2 / 30, type: 'CLOUD' },
-      // Linha 2376 (Rampa CLOUD inclinada)
-      { material: 'metal', x: 167 / 30, y: 196 / 30, angle: 0.7853981633974483, width: 34 / 30, height: 3 / 30, type: 'CLOUD' },
-      // Linha 2378 (Escada LADDER)
-      { material: 'metal', x: 60 / 30, y: 139 / 30, angle: 0, width: 12 / 30, height: 83 / 30, type: 'LADDER' }
-    ];
-
-    for (const b of groundBoxes) {
+    for (const b of this.groundBoxes) {
       // Regra de MapPremadeItems.as:171-172:
       // width += 0.5 / 30; height += 0.5 / 30; SetAsBox(width / 2, height / 2);
       const w = b.width + 0.5 / 30.0;
@@ -383,5 +380,112 @@ export class StorageMap {
     this.showHitboxes = !this.showHitboxes;
     this.renderDebugHitboxes();
     return this.showHitboxes;
+  }
+
+  /**
+   * Verifica colisão dos pés do jogador com o solo estático e plataformas CLOUD (Player.as:8206-8236).
+   */
+  public checkFeetCollision(
+    px: number,
+    py: number,
+    isFallingThroughCloud: boolean = false
+  ): { collided: boolean; groundY: number } {
+    for (const b of this.groundBoxes) {
+      if (b.type === 'LADDER') continue;
+
+      const minX = (b.x - b.width / 2) * 30.0;
+      const maxX = (b.x + b.width / 2) * 30.0;
+      const minY = (b.y - b.height / 2) * 30.0;
+      const maxY = (b.y + b.height / 2) * 30.0;
+
+      if (b.type === 'NONE') {
+        // Bloco de solo ou metal sólido
+        if (px >= minX && px <= maxX && py >= minY - 2 && py <= maxY) {
+          return { collided: true, groundY: minY };
+        }
+      } else if (b.type === 'CLOUD' && !isFallingThroughCloud) {
+        // Plataforma nuvem permeável: só apoia se vier de cima
+        if (px >= minX && px <= maxX && py >= minY - 3 && py <= minY + 7) {
+          return { collided: true, groundY: minY };
+        }
+      }
+    }
+    return { collided: false, groundY: py };
+  }
+
+  /**
+   * Verifica colisão lateral do corpo do jogador com paredes sólidas.
+   */
+  public checkWallCollision(
+    px: number,
+    py: number,
+    halfWidth: number = 6,
+    height: number = 18
+  ): { collided: boolean; pushX: number } {
+    const left = px - halfWidth;
+    const right = px + halfWidth;
+    const top = py - height;
+    const bottom = py - 2;
+
+    for (const b of this.groundBoxes) {
+      if (b.type !== 'NONE') continue; // Só blocos sólidos barram lateralmente
+
+      const minX = (b.x - b.width / 2) * 30.0;
+      const maxX = (b.x + b.width / 2) * 30.0;
+      const minY = (b.y - b.height / 2) * 30.0;
+      const maxY = (b.y + b.height / 2) * 30.0;
+
+      // Teste de intersecção AABB
+      if (right > minX && left < maxX && bottom > minY && top < maxY) {
+        // Empurrar para fora do lado mais próximo
+        const pushLeft = minX - right;
+        const pushRight = maxX - left;
+        const pushX = Math.abs(pushLeft) < Math.abs(pushRight) ? pushLeft : pushRight;
+        return { collided: true, pushX };
+      }
+    }
+    return { collided: false, pushX: 0 };
+  }
+
+  /**
+   * Verifica se o ponto está dentro de uma escada (LADDER).
+   */
+  public checkLadderCollision(px: number, py: number): boolean {
+    for (const b of this.groundBoxes) {
+      if (b.type !== 'LADDER') continue;
+
+      const minX = (b.x - b.width / 2) * 30.0;
+      const maxX = (b.x + b.width / 2) * 30.0;
+      const minY = (b.y - b.height / 2) * 30.0;
+      const maxY = (b.y + b.height / 2) * 30.0;
+
+      if (px >= minX && px <= maxX && py >= minY && py <= maxY) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Aplica impulso físico Box2D em caixas e barris próximos ao lutador (Dive / Chute).
+   */
+  public pushDynamicItem(px: number, py: number, dirX: number, impulsePower: number = 2.0): void {
+    const pxMeters = px / 30.0;
+    const pyMeters = py / 30.0;
+
+    for (const item of this.destructibles) {
+      const pos = item.body.getPosition();
+      const dx = pos.x - pxMeters;
+      const dy = pos.y - pyMeters;
+      const distSq = dx * dx + dy * dy;
+
+      // Se estiver a menos de 1 metro (30 pixels) de distância
+      if (distSq < 1.0) {
+        item.body.applyLinearImpulse(
+          planck.Vec2(dirX * impulsePower, -0.5),
+          pos
+        );
+      }
+    }
   }
 }

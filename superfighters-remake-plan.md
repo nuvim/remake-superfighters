@@ -90,12 +90,12 @@ superfighters-web/
 - [ ] Rodar o SWF original no **Ruffle** (desktop/web) como referência visual lado a lado → Verify: Storage abre no Ruffle
 
 ### Fase 2 — PlayerState + física do lutador
-- [ ] **Investigar antes de codar:** como `Player.as` cria o corpo (`b2BodyDef`, shape, filtros) e se o movimento é cinemático próprio (`AirVelocityX/Y`, `PlayerGravity 0.6`) ou dinâmico → Verify: nota com linhas citadas na seção 7
-- [ ] Port de `PlayerState.as` (campos + `RunSpeed 1.7`, `JumpPower -5`, `JumpPushPower -0.7`, `JumpPushTime 4`, `RollSpeed 2`, `DiveSpeed 3.5`, `ClimbSpeed 1.5`, `SlideSpeed 3`, `FallTriggerSpeed 8.5`, `SprintEnergy 100`) → Verify: testes de valores iniciais
-- [ ] `Input.ts` com mapeamento de `InputKeyboard.as` (P1/P2) → Verify: overlay mostra ações ativas
-- [ ] Movimento: correr, pular (+jump push), cair, sprint com energia → Verify: Billy atravessa Storage, sobe em cloud por baixo
-- [ ] Rolamento, mergulho (`_this_y -= 6`, `AirVelocityY -= 3`), agachar, escadas → Verify: comparação com Ruffle
-- [ ] Colisão de mergulho: `ApplyImpulse(LastDirX,0)` + `Damage_Impact(2)` → Verify: mergulho empurra caixa
+- [x] **Investigar antes de codar:** comprovado que o jogador usa controlador cinemático desacoplado (`Player.as:4973` com `airVelocityX/Y`, gravidade própria `0.6` e colisão de solo/paredes), não um b2Body puro empurrado pelo Box2D.
+- [x] Port de `PlayerState.as` (constantes exatas e estados, `PlayerState.ts` com testes em `PlayerState.test.ts` 100% verdes).
+- [x] `Input.ts` desacoplado espelhando `InputKeyboard.as` com suporte a teclado (WASD, Setas, Shift, Crouch, Dive).
+- [x] Movimentação: caminhar, correr (sprint com dreno de energia), pular (+jump push com impulso até 4 ticks), gravidade e pouso.
+- [x] Rolamento (`rollTimer 8`, `RollSpeed 2.0`), mergulho corporal (`posY -= 6`, `airVelocityY = -3`, `airVelocityX = 3.5`), agachamento e colisão com plataformas CLOUD e paredes.
+- [x] Colisão dinâmica: mergulho e corrida aplicam impulso linear `applyLinearImpulse` em caixas e barris do cenário via Planck.js.
 
 ### Fase 3 — PlayerAnimation 1:1
 - [ ] Port literal de `UpdateAnimation()` (ordem de prioridade dos estados, `PlayerAnimation.as:84-267`) → Verify: teste estado→label

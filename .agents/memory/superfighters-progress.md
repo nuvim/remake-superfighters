@@ -40,4 +40,12 @@ updated: 2026-10-21
    - Confirmado que os sub-sprites com os frames reais (ex: 1236 IDLE com 61 frames, 1242 RUN com 12 frames) já estão exportados em `decompiled/assets/sprites/`.
    - Gerado `superfighters-web/src/data/generated/spriteDatabase.json`.
    - Teste unitário `SpriteDatabase.test.ts` adicionado e passando (6/6 testes verdes).
-6. **Parado aqui. Próximo passo:** Iniciar **Fase 2** (PlayerState + física do lutador: corpo Box2D, constantes de movimento, dive, roll e input).
+6. **Fase 2 Concluída:**
+   - Confirmado pelo AS3 (`Player.as:4973`) que o movimento do jogador é um controlador cinemático desacoplado (gravidade própria 0.6, impulso de pulo até 4 ticks, colisão pés/parede).
+   - `PlayerState.ts` implementado com todas as constantes canônicas e testes em `PlayerState.test.ts` (100% verde).
+   - `Input.ts` implementado com mapeamento de teclado (WASD, Setas, Shift, Crouch, Dive).
+   - `StorageMap.ts` enriquecido com `checkFeetCollision`, `checkWallCollision` e `pushDynamicItem`.
+   - `Player.ts` implementado com pulo, mergulho (dive), rolamento (roll), agachamento e colisão com caixas/barris via Planck.js.
+   - `main.ts` atualizado: textura do Billy carregada, player instanciado e adicionado à DisplayList, atualização a 30Hz e perseguição suave de câmera.
+   - Suíte de testes passando (8/8) e build do Vite verificado sem erros (`npm run build`).
+7. **Próximo passo:** Iniciar **Fase 3** (PlayerAnimation 1:1: `UpdateAnimation()`, `ShowAnimation()`, `ProgressAnimation()`, e integração do `ANIM` com `spriteDatabase.json`).

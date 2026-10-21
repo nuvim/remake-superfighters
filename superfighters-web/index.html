@@ -3,20 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Superfighters Remake 1:1 — Storage Map & Camera Test</title>
+    <title>Superfighters Remake 1:1 — Fase 2: Billy & Storage</title>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
     <div id="canvas-container">
       <div id="debug-overlay">
-        <div><strong>SUPERFIGHTERS REMAKE 1:1</strong> [Passos 1-3: Storage & Camera]</div>
+        <div><strong>SUPERFIGHTERS REMAKE 1:1</strong> [Fase 2: Billy Kinematic Controller & Física 30Hz]</div>
+        <div id="player-info">Billy: Pos (120, 190) | HP: 100 | Energy: 100 | State: Parado</div>
         <div id="cam-info">Cam Pos: (0, 0) | Zoom: 1.00x</div>
         <div id="physics-info">Bodies: 0 | PTM_RATIO: 30.0</div>
-        <div id="mode-info">Camera: AUTO-FOCUS (Teclas: [H] Hitboxes | [ESPAÇO] Reset Cam | [Setas/Mouse] Pan/Zoom)</div>
+        <div id="mode-info">Camera: AUTO-FOCUS (Teclas: [A/D] Mover | [W] Pular | [S] Agachar/Rolar | [Shift] Correr/Mergulho | [C] Câmera Seguir | [H] Hitboxes)</div>
       </div>
     </div>
     <div id="instructions-bar">
-      Use <span>Setas</span> ou <span>Arrastar com Mouse</span> para mover a Câmera | <span>Roda do Mouse</span> para Zoom | <span>H</span> para exibir Hitboxes de Colisão | <span>ESPAÇO</span> para auto-enquadramento
+      <span>A/D</span> Mover | <span>W</span> Pular | <span>S</span> Agachar/Rolar | <span>Shift</span> Correr | <span>Shift+W</span> Mergulho (Dive) | <span>C</span> Câmera Seguir/Mapa | <span>H</span> Hitboxes | <span>Espaço</span> Reset Cam
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
