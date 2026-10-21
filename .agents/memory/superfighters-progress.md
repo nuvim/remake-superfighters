@@ -54,10 +54,18 @@ updated: 2026-10-21
    - Pré-carregamento assíncrono de animações essenciais adicionado ao bootstrap de `main.ts`.
    - 16 testes unitários em Vitest 100% passando (`npm run test`).
    - Verificação visual no navegador real via `browser_subagent` com captura de screenshots confirmando Billy em pé e andando no mapa Storage com animação fluida, hitboxes perfeitas e sem erros de console.
-8. **Correção de Bugs Críticos relatados pelo usuário:**
-   - **Queda ao passar da escada:** `StorageMap.ts` ignorava os polígonos inclinados de rampa `stair02` (x: 127 a 157) e `stair01` (x: 304 a 334). Portada a fórmula de rampa de `Maps.as:2362-2366` (`dy = (x - 133) * 0.75` para stair02 e `dy = -(x - 304) * 0.75` para stair01). Criado `StorageMap.test.ts` testando varredura pixel a pixel de x=60 a x=450 comprovando 100% de contato no chão.
-   - **Sprites mal recortados / desalinhados:** O script `build-sprite-db.mjs` ignorava matrizes quando `hasScale="false"`, zerando o offset de translação dos sub-sprites. O script foi corrigido para extrair `translateX` e `translateY` canônicos independentemente da escala e o `spriteDatabase.json` foi regenerado. Em `CharacterSkin.ts`, removido `anchor.set(0.5, 1.0)` hardcoded e adotado `anchor.set(0, 0)` posicionado no offset exato de cada sub-frame extraído da matriz do Flash.
-   - **Testes Unitários:** 21/21 testes passando no Vitest (`npm run test`).
-   - **Validação no Navegador:** Executado teste interativo com `browser_subagent` no Vite (`localhost:5173`). Billy andou para a direita, desceu a rampa suavemente (chegou em x=162, y=273 sem cair no poço), pulou sobre a plataforma e retornou à esquerda. Zero erros no console.
-9. **Próximo passo:** Iniciar **Fase 4** (Câmera dinâmica: port de `GetCamArea` de `GameMain.as:1450-1490` / `Cam.as:112-143`, bounding box dinâmica de lutadores, padding de 40px, zoom e interpolação suave).
+8. **Refinamento Absoluto da Fase 2 (Física Cinemática de Escadas e Caixas/Barris):**
+   - **Feedback do Usuário:** "seus testes nao estao bem feitos, ele desce a escd mas nao sobe, e cai no limbo, a fisica dos objetos estao bugados... para de ser apressado e foque em cada fase individualmente, vamos melhorar o maximo possivel".
+   - **Investigação Profunda no ActionScript 3 (`Player.as` e `Maps.as`):**
+     - O movimento no Flash ocorre em micro-passos de 0.1 px (`dirX * 0.1`) em `MovePlayer` (`Player.as:3883`). A cada micro-passo, `UpdateSimpleGroundMovement` (`Player.as:4551`) ergue o jogador de 0.1 em 0.1 px se houver penetração (`CollisionFeetMid(-1, 1)`), ou abaixa de 0.1 em 0.1 px se estiver flutuando a até 6 px (`CanLandInMid`).
+     - Em `Player.as:8082`, `WalkCollision` só testa colisão em `y - 4` e `y - 6` à frente, logo rampas nunca bloqueiam caminhada.
+     - Em `GameMain.as:237`, `_static_world_hitbox_mc.addChild(_static_objects_hitbox_mc)`, ou seja, no Flash caixas e barris fazem parte da mesma árvore de colisão do mundo estático.
+   - **Correção dos 2 Bugs Críticos:**
+     1. **Subir Escadas & Limbo:** `playerEdgeDistance` estava faltando em `PlayerState.ts`, resultando em `undefined`. No JS, `loc1 <= undefined` avaliava para `false`, desativando `canLandInMid()` e `collisionFeetSides()` ao subir rampas, fazendo o Billy cair no limbo. Adicionados `playerEdgeDistance = 6`, `playerHeight = 18` e `maxPlayerHeight = 18`. Adicionada expansão de 0.5px `IncreaseCorners` (`MapPremadeItems.as:2807`) aos polígonos das escadas no `StorageMap.ts`, eliminando perdas de detecção no topo das rampas.
+     2. **Física de Objetos (Caixas e Barris):** `hitTestWorld` agora verifica tanto geometria estática quanto corpos dinâmicos (`destructibles`). Caixas barram o jogador na cintura, suportam o jogador em cima (`CollisionFeetMid`), e podem ser empurradas com impulsos lineares (`pushBody` com 1.2 normal / 2.5 sprint).
+   - **Validação com Testes:**
+     - **Vitest Unitários:** 23/23 testes passando (`tests/StorageMap.test.ts` testa caminhada contínua para a direita de 60 a 400 e para a esquerda de 400 a 60, sem nenhuma perda de contato com o solo).
+     - **Python Harnesses:** `tools/test_flash_physics_1to1.py` confirma 100% de estabilidade na simulação física do Flash.
+     - **Browser Real (`browser_subagent`):** Billy desceu a `stair02` para o piso inferior (`Pos 297, 273, Grounded: SIM`), virou à esquerda e **SUBIU a `stair02` de volta até a plataforma superior (`Pos 98, 256, Grounded: SIM`) sem cair no limbo**. Ao encontrar uma caixa, foi bloqueado pela colisão, pulou com `W` e aterrissou perfeitamente no topo da caixa (`Pos 297, 259, Grounded: SIM`). Gravado no artefato `billy_stairs_and_physics_test_1792621320384.webp`.
+9. **Status Atual:** Fase 2 concluída com rigor 1:1, aguardando validação do usuário antes de iniciar qualquer fase seguinte.
 

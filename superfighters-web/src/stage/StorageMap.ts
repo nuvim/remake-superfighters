@@ -126,6 +126,25 @@ export class StorageMap {
     { material: 'metal', x: 60 / 30, y: 139 / 30, angle: 0, width: 12 / 30, height: 83 / 30, type: 'LADDER' }
   ];
 
+  public readonly staticPolysPixel: [number, number][][] = [
+    // stair02 (x: 127 a 157, y: 255 a 273) com IncreaseCorners (0.5px expansão de MapPremadeItems.as:2807)
+    [
+      [126.5, 254.5],
+      [133.5, 254.5],
+      [157.5, 272.5],
+      [157.5, 335.5],
+      [126.5, 335.5]
+    ],
+    // stair01 (x: 304 a 334, y: 273 a 255) com IncreaseCorners
+    [
+      [303.5, 272.5],
+      [327.5, 254.5],
+      [334.5, 254.5],
+      [334.5, 335.5],
+      [303.5, 335.5]
+    ]
+  ];
+
   /**
    * Cria todas as caixas de colisão de solo e plataformas nuvem (CLOUD)
    * copiadas literalmente de Maps.as:2350-2378.
@@ -146,11 +165,17 @@ export class StorageMap {
       const friction = b.material === 'ground' ? 0.5 : 0.4;
       const restitution = b.material === 'ground' ? 0.2 : 0.1;
 
+      const isLadder = b.type === 'LADDER';
+      const isCloud = b.type === 'CLOUD';
+
       body.createFixture({
         shape: planck.Box(w / 2.0, h / 2.0),
         density: 0.0,
         friction: friction,
-        restitution: restitution
+        restitution: restitution,
+        isSensor: isLadder,
+        filterCategoryBits: isCloud ? 4 : (isLadder ? 8 : 1),
+        filterMaskBits: isLadder ? 0 : 65535
       });
 
       body.setUserData({
@@ -383,6 +408,157 @@ export class StorageMap {
   }
 
   /**
+   * Helper point-in-polygon (Ray-casting) para conferência de polígonos côncavos/convexos
+   */
+  private pointInPolygon(x: number, y: number, verts: [number, number][]): boolean {
+    let inside = false;
+    const n = verts.length;
+    let p1x = verts[0][0];
+    let p1y = verts[0][1];
+    for (let i = 0; i <= n; i++) {
+      const p2x = verts[i % n][0];
+      const p2y = verts[i % n][1];
+      if (y > Math.min(p1y, p2y) && y <= Math.max(p1y, p2y) && x <= Math.max(p1x, p2x)) {
+        if (p1y !== p2y) {
+          const xinters = ((y - p1y) * (p2x - p1x)) / (p2y - p1y) + p1x;
+          if (p1x === p2x || x <= xinters) {
+            inside = !inside;
+          }
+        }
+      }
+      p1x = p2x;
+      p1y = p2y;
+    }
+    return inside;
+  }
+
+  /**
+   * hitTestWorld 1:1 com _static_world_hitbox_mc.hitTestPoint(x, y, true) de Player.as:7916.
+   * Testa colisão contra todas as caixas sólidas (NONE), polígonos de escadas (stair01, stair02)
+   * e corpos dinâmicos de caixas/barris (OBJECTS_HITBOX).
+   */
+  public hitTestWorld(x: number, y: number, checkDynamic: boolean = true): boolean {
+    // 1. Caixas estáticas sólidas (material ground ou metal com type NONE)
+    for (const b of this.groundBoxes) {
+      if (b.type !== 'NONE') continue;
+      const minX = (b.x - b.width / 2) * 30.0 - 0.25;
+      const maxX = (b.x + b.width / 2) * 30.0 + 0.25;
+      const minY = (b.y - b.height / 2) * 30.0 - 0.25;
+      const maxY = (b.y + b.height / 2) * 30.0 + 0.25;
+      if (x >= minX && x <= maxX && y >= minY && y <= maxY) return true;
+    }
+
+    // 2. Polígonos de rampa (stair02 e stair01)
+    for (const poly of this.staticPolysPixel) {
+      if (this.pointInPolygon(x, y, poly)) return true;
+    }
+
+    // 3. Caixas e barris dinâmicos (_static_objects_hitbox_mc em Flash)
+    if (checkDynamic) {
+      for (const item of this.destructibles) {
+        if (item.hp <= 0) continue;
+        const pos = item.body.getPosition();
+        const halfW = (item.def.sizeX + 1) / 2.0;
+        const halfH = (item.def.sizeY + 1) / 2.0;
+        const angle = item.body.getAngle();
+        const dx = x - pos.x * 30.0;
+        const dy = y - pos.y * 30.0;
+
+        if (Math.abs(angle) < 0.01) {
+          if (Math.abs(dx) <= halfW && Math.abs(dy) <= halfH) return true;
+        } else {
+          const cos = Math.cos(-angle);
+          const sin = Math.sin(-angle);
+          const lx = dx * cos - dy * sin;
+          const ly = dx * sin + dy * cos;
+          if (Math.abs(lx) <= halfW && Math.abs(ly) <= halfH) return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * hitTestCloud 1:1 com _static_world_cloud_hitbox_mc.hitTestPoint(x, y, true) de Player.as:7932.
+   * Testa colisão contra plataformas nuvem permeáveis (CLOUD).
+   */
+  public hitTestCloud(x: number, y: number): boolean {
+    for (const b of this.groundBoxes) {
+      if (b.type !== 'CLOUD') continue;
+      if (b.angle !== 0) {
+        const dx = x - b.x * 30.0;
+        const dy = y - b.y * 30.0;
+        const cos = Math.cos(-b.angle);
+        const sin = Math.sin(-b.angle);
+        const lx = dx * cos - dy * sin;
+        const ly = dx * sin + dy * cos;
+        const hw = (b.width * 30.0) / 2.0;
+        const hh = (b.height * 30.0) / 2.0;
+        if (Math.abs(lx) <= hw && Math.abs(ly) <= hh + 1.0) return true;
+      } else {
+        const minX = (b.x - b.width / 2) * 30.0;
+        const maxX = (b.x + b.width / 2) * 30.0;
+        const minY = (b.y - b.height / 2) * 30.0;
+        const maxY = (b.y + b.height / 2) * 30.0 + 1.0;
+        if (x >= minX && x <= maxX && y >= minY && y <= maxY) return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * hitTestLadder 1:1 com _static_ladder_hitbox_mc.hitTestPoint(x, y, true) de Player.as:4732.
+   */
+  public hitTestLadder(x: number, y: number): boolean {
+    for (const b of this.groundBoxes) {
+      if (b.type !== 'LADDER') continue;
+      const minX = (b.x - b.width / 2) * 30.0;
+      const maxX = (b.x + b.width / 2) * 30.0;
+      const minY = (b.y - b.height / 2) * 30.0;
+      const maxY = (b.y + b.height / 2) * 30.0;
+      if (x >= minX && x <= maxX && y >= minY && y <= maxY) return true;
+    }
+    return false;
+  }
+
+  /**
+   * Retorna o corpo dinâmico (Box2D Planck.js) presente nas coordenadas (px, py), se houver.
+   */
+  public getDynamicBodyAt(px: number, py: number): planck.Body | null {
+    for (const item of this.destructibles) {
+      if (item.hp <= 0) continue;
+      const pos = item.body.getPosition();
+      const halfW = (item.def.sizeX + 4) / 2.0;
+      const halfH = (item.def.sizeY + 4) / 2.0;
+      const angle = item.body.getAngle();
+      const dx = px - pos.x * 30.0;
+      const dy = py - pos.y * 30.0;
+
+      if (Math.abs(angle) < 0.01) {
+        if (Math.abs(dx) <= halfW && Math.abs(dy) <= halfH) return item.body;
+      } else {
+        const cos = Math.cos(-angle);
+        const sin = Math.sin(-angle);
+        const lx = dx * cos - dy * sin;
+        const ly = dx * sin + dy * cos;
+        if (Math.abs(lx) <= halfW && Math.abs(ly) <= halfH) return item.body;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Aplica impulso físico linear em um corpo dinâmico (ex: ao empurrar ou chutar).
+   */
+  public pushBody(body: planck.Body, dirX: number, power: number = 1.2): void {
+    body.applyLinearImpulse(
+      planck.Vec2(dirX * power, -0.1),
+      body.getPosition()
+    );
+  }
+
+  /**
    * Verifica colisão dos pés do jogador com o solo estático e plataformas CLOUD (Player.as:8206-8236).
    */
   public checkFeetCollision(
@@ -469,19 +645,7 @@ export class StorageMap {
    * Verifica se o ponto está dentro de uma escada (LADDER).
    */
   public checkLadderCollision(px: number, py: number): boolean {
-    for (const b of this.groundBoxes) {
-      if (b.type !== 'LADDER') continue;
-
-      const minX = (b.x - b.width / 2) * 30.0;
-      const maxX = (b.x + b.width / 2) * 30.0;
-      const minY = (b.y - b.height / 2) * 30.0;
-      const maxY = (b.y + b.height / 2) * 30.0;
-
-      if (px >= minX && px <= maxX && py >= minY && py <= maxY) {
-        return true;
-      }
-    }
-    return false;
+    return this.hitTestLadder(px, py);
   }
 
   /**
@@ -497,7 +661,6 @@ export class StorageMap {
       const dy = pos.y - pyMeters;
       const distSq = dx * dx + dy * dy;
 
-      // Se estiver a menos de 1 metro (30 pixels) de distância
       if (distSq < 1.0) {
         item.body.applyLinearImpulse(
           planck.Vec2(dirX * impulsePower, -0.5),

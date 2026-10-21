@@ -31,6 +31,11 @@ export class PlayerState {
   public static readonly PIVOT_X: number = 24; // Ponto pivô original do Flash
   public static readonly PIVOT_Y: number = 28;
 
+  // Dimensões do corpo canônicas de PlayerState.as
+  public playerEdgeDistance: number = 6; // PlayerState.as:48
+  public playerHeight: number = 18; // PlayerState.as:46
+  public maxPlayerHeight: number = 18; // PlayerState.as:44
+
   // Estado vital
   public hp: number = PlayerState.MAX_HEALTH;
   public sprintEnergy: number = PlayerState.SPRINT_ENERGY_MAX;
