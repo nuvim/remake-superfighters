@@ -67,5 +67,15 @@ updated: 2026-10-21
      - **Vitest Unitários:** 23/23 testes passando (`tests/StorageMap.test.ts` testa caminhada contínua para a direita de 60 a 400 e para a esquerda de 400 a 60, sem nenhuma perda de contato com o solo).
      - **Python Harnesses:** `tools/test_flash_physics_1to1.py` confirma 100% de estabilidade na simulação física do Flash.
      - **Browser Real (`browser_subagent`):** Billy desceu a `stair02` para o piso inferior (`Pos 297, 273, Grounded: SIM`), virou à esquerda e **SUBIU a `stair02` de volta até a plataforma superior (`Pos 98, 256, Grounded: SIM`) sem cair no limbo**. Ao encontrar uma caixa, foi bloqueado pela colisão, pulou com `W` e aterrissou perfeitamente no topo da caixa (`Pos 297, 259, Grounded: SIM`). Gravado no artefato `billy_stairs_and_physics_test_1792621320384.webp`.
-9. **Status Atual:** Fase 2 concluída com rigor 1:1, aguardando validação do usuário antes de iniciar qualquer fase seguinte.
+9. **Sessão 3 — 2026-10-21 (Sprint 0 do Plano Mestre de Paridade):**
+   - Adotado o **Plano Mestre de Paridade** (`superfighters-remake-plan.md`) como único plano ativo. Planos antigos movidos para `docs/archive/`.
+   - Projetos descontinuados (`superfighters-csharp/` e `superfighters-flash-game/`) arquivados em `archive/`. Skills desnecessárias movidas para `.agents-disabled/`.
+   - Iterações do Box2D ajustadas para 20/20 (`world.step(dt, 20, 20)`) em `main.ts` (`GameMain.as:152`).
+   - `movePlayer` corrigido com `Math.trunc(Math.abs(speed * 10))` e `gameSpeed` (`Player.as:3883-3932`).
+   - `updateSimpleGroundMovement` portado 1:1 de `Player.as:4551-4626` incluindo `worldCollisionHead()` e o recheck de `CollisionFeetSides`.
+   - Unificadas as escadas: `staticPolysPixel` agora é getter derivado dinamicamente das fixtures do Planck.js (`vertices * 30`), eliminando discrepâncias manuais e código morto de colisão.
+   - Implementado `StairGeometry.test.ts` validando os polígonos contra `IncreaseCorners` (`MapPremadeItems.as:2807`).
+   - 25/25 testes Vitest passando; `tsc --noEmit` 100% limpo. Commit e push realizados para `origin/main`.
+10. **Status Atual:** Sprint 0 / Fase A 100% concluída. Próximo passo: **Fase B (Oráculo)** do plano de paridade.
+
 
