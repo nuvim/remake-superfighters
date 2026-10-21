@@ -68,6 +68,12 @@ export class PlayerState {
   public aimMode: number = 0; // 0 = normal, 1 = throwable
   public aimTurningAround: boolean = false;
   public currentAimPitch: number = 0; // Graus de inclinação da mira
+  public ignoreMe: boolean = false;
+  public stuckToRocket: boolean = false;
+  public grabbedByPlayer: boolean = false;
+  public isStunned: boolean = false;
+  public stunAnimation: number = 1;
+  public throwing: boolean = false;
   public isImmune: boolean = false;
   public immunityTimer: number = 0;
 

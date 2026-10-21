@@ -1,39 +1,36 @@
-import { Container, Graphics, Sprite, Texture } from 'pixi.js';
+import { Container, Graphics, Texture } from 'pixi.js';
 import type { PlayerInputActions } from '../engine/Input';
 import type { StorageMap } from '../stage/StorageMap';
+import { CharacterSkin } from './CharacterSkin';
+import { PlayerAnimation } from './PlayerAnimation';
 import { PlayerState } from './PlayerState';
 
 /**
  * Player.ts — Controlador cinemático 1:1 de Code/Data/Players/Player.as.
- * Implementa o ciclo físico a 30 Hz com as equações originais de gravidade, pulo e colisão.
+ * Implementa o ciclo físico a 30 Hz com as equações originais de gravidade, pulo e colisão,
+ * integrando a máquina de estados de animação PlayerAnimation e a skin de renderização CharacterSkin.
  */
 export class Player {
   public readonly state: PlayerState;
+  public readonly anim: PlayerAnimation;
+  public readonly skin: CharacterSkin;
   public readonly container: Container;
-  public readonly sprite: Sprite;
   public readonly debugHitbox: Graphics;
 
   constructor(
-    charTexture: Texture,
+    charTexture?: Texture,
     spawnX: number = 200,
     spawnY: number = 250,
-    charNr: number = 0
+    charNr: number = 0,
+    charKey: string = 'player_billy'
   ) {
     this.state = new PlayerState(spawnX, spawnY);
     this.state.charNr = charNr;
 
-    // Container visual colocado na camada PLAYERS da DisplayList
-    this.container = new Container();
+    this.anim = new PlayerAnimation(this.state);
+    this.skin = new CharacterSkin(charKey, charTexture);
+    this.container = this.skin.container;
     this.container.position.set(spawnX, spawnY);
-
-    // Sprite representativo do lutador
-    this.sprite = new Sprite(charTexture);
-    // Ponto pivô do Flash: centralizado horizontalmente nos pés (24, 28)
-    this.sprite.anchor.set(
-      PlayerState.PIVOT_X / charTexture.width,
-      PlayerState.PIVOT_Y / charTexture.height
-    );
-    this.container.addChild(this.sprite);
 
     // Hitbox de colisão para debug visual (Player.as:265-270)
     // Retângulo vermelho semitransparente: x de -6 a +6, y de -18 a +2
@@ -48,7 +45,7 @@ export class Player {
   /**
    * Atualização lógica do lutador executada estritamente a 30 Hz (Player.as).
    */
-  public update(_dt: number, actions: PlayerInputActions, map: StorageMap): void {
+  public update(dt: number, actions: PlayerInputActions, map: StorageMap): void {
     this.state.updateTimers();
 
     // 1. Processar entradas horizontais
@@ -169,9 +166,8 @@ export class Player {
       map.pushDynamicItem(this.state.posX, this.state.posY, this.state.lastDirX, impulse);
     }
 
-    // 6. Atualizar container visual PixiJS
-    this.container.position.set(this.state.posX, this.state.posY);
-    this.container.scale.x = this.state.lastDirX; // Espelhamento horizontal instantâneo (scale.x = -1)
+    // 6. Atualizar skin visual e animações 1:1 do Flash
+    this.skin.update(dt, this.state, this.anim);
   }
 
   /**

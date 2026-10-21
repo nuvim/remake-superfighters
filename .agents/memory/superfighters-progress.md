@@ -48,4 +48,10 @@ updated: 2026-10-21
    - `Player.ts` implementado com pulo, mergulho (dive), rolamento (roll), agachamento e colisão com caixas/barris via Planck.js.
    - `main.ts` atualizado: textura do Billy carregada, player instanciado e adicionado à DisplayList, atualização a 30Hz e perseguição suave de câmera.
    - Suíte de testes passando (8/8) e build do Vite verificado sem erros (`npm run build`).
-7. **Próximo passo:** Iniciar **Fase 3** (PlayerAnimation 1:1: `UpdateAnimation()`, `ShowAnimation()`, `ProgressAnimation()`, e integração do `ANIM` com `spriteDatabase.json`).
+7. **Fase 3 Concluída:**
+   - `PlayerAnimation.ts` implementado 1:1 com `PlayerAnimation.as:84-267` (prioridade estrita de labels, rotação angular em DIVE/FALL_B/FALL_F, loop table, piscar de imunidade com alpha 0.2, timers 3/1 e `AnimationDone()`).
+   - `CharacterSkin.ts` desenvolvido para orquestrar os sub-sprites de `spriteDatabase.json`, aplicando transformações da matriz canônica (twips/20) para alinhar o MovieClip `ANIM` com a hitbox nos pés.
+   - Pré-carregamento assíncrono de animações essenciais adicionado ao bootstrap de `main.ts`.
+   - 16 testes unitários em Vitest 100% passando (`npm run test`).
+   - Verificação visual no navegador real via `browser_subagent` com captura de screenshots confirmando Billy em pé e andando no mapa Storage com animação fluida, hitboxes perfeitas e sem erros de console.
+8. **Próximo passo:** Iniciar **Fase 4** (Câmera seguindo jogadores dinamicamente: cálculo de bounding box `GetCamArea` de múltiplos lutadores com padding e zoom suave).

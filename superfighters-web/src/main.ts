@@ -76,6 +76,7 @@ async function bootstrap() {
   // 6. Instanciar o Jogador Billy (Player.as) e Entrada (Input.ts)
   const inputManager = new InputManager();
   const player = new Player(billyTexture, 120, 190, 0);
+  await player.skin.preloadCoreAnimations();
   layers.playersLayer.addChild(player.container);
 
   // 7. Instanciar a Câmera 1:1 com Cam.as
@@ -174,7 +175,9 @@ async function bootstrap() {
     else if (pState.sprinting) stateDesc = 'CORRENDO (Sprint)';
     else if (pState.movingDirectionX !== 0) stateDesc = 'ANDANDO (Run)';
 
-    playerInfo.textContent = `Billy: Pos (${Math.round(pState.posX)}, ${Math.round(pState.posY)}) | Vel: (${pState.airVelocityX.toFixed(1)}, ${pState.airVelocityY.toFixed(1)}) | Grounded: ${pState.isGrounded ? 'SIM' : 'NÃO'} | Energy: ${Math.round(pState.sprintEnergy)}% | State: ${stateDesc}`;
+    const currentAnim = player.anim.currentAnimation;
+    const currentFrame = player.anim.currentFrameInt;
+    playerInfo.textContent = `Billy: Pos (${Math.round(pState.posX)}, ${Math.round(pState.posY)}) | Vel: (${pState.airVelocityX.toFixed(1)}, ${pState.airVelocityY.toFixed(1)}) | Grounded: ${pState.isGrounded ? 'SIM' : 'NÃO'} | Energy: ${Math.round(pState.sprintEnergy)}% | Anim: ${currentAnim} [f${currentFrame}] | State: ${stateDesc}`;
     camInfo.textContent = `Cam Pos: (${Math.round(camPos.x)}, ${Math.round(camPos.y)}) | Zoom: ${camera.currentScale.toFixed(2)}x | Modo: ${camera.isManualControl ? 'MANUAL' : (camera.showAll ? 'VISÃO GERAL' : 'SEGUINDO BILLY')}`;
     physicsInfo.textContent = `Logic: ${gameLoop.logicHz} Hz (Fixed 30Hz) | Render: ${gameLoop.renderFps} FPS | Bodies: ${world.getBodyCount()} | PTM: 30.0`;
   };

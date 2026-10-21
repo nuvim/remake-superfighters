@@ -98,11 +98,12 @@ superfighters-web/
 - [x] Colisão dinâmica: mergulho e corrida aplicam impulso linear `applyLinearImpulse` em caixas e barris do cenário via Planck.js.
 
 ### Fase 3 — PlayerAnimation 1:1
-- [ ] Port literal de `UpdateAnimation()` (ordem de prioridade dos estados, `PlayerAnimation.as:84-267`) → Verify: teste estado→label
-- [ ] `ShowAnimation()` com tabela de loop (`IDLE/RUN/SPRINT/CLIMB/STAGGER/GRABBED`), `DIVE` (rot 1.5), `FALL_B/F` (rot ∓10, inc ∓2, cap 36) → Verify: testes
-- [ ] `ProgressAnimation(dt)` com `_current_frame` fracionário, `AnimationDone()` resetando flags → Verify: ROLL termina e volta a IDLE
-- [ ] `CharacterSkin.ts`: Container externo + filho `ANIM` posicionado pela matriz extraída; espelho `scale.x = LastDirX` → Verify: nenhum frame duplicado; pivô estável
-- [ ] Piscar de imunidade (alpha 0.2, timers 3/1) → Verify: visível ao spawnar
+- [x] Port literal de `UpdateAnimation()` (ordem de prioridade canônica dos estados, `PlayerAnimation.as:84-267`) → Testado em `PlayerAnimation.test.ts`.
+- [x] `ShowAnimation()` com tabela de loop (`IDLE/RUN/SPRINT/CLIMB/STAGGER/GRABBED`), `DIVE` (rot 1.5), `FALL_B/F` (rot ∓10, inc ∓2, cap 36) → Testado em `PlayerAnimation.test.ts`.
+- [x] `ProgressAnimation(dt)` com `_current_frame` fracionário a 30Hz, `AnimationDone()` resetando flags e estados de ROLL/KNEEL/etc.
+- [x] `CharacterSkin.ts`: Container raiz + sub-container `ANIM` posicionado e transformado pelas matrizes extraídas de `spriteDatabase.json`; espelho horizontal instantâneo `scale.x = lastDirX` e anchor nos pés `(0.5, 1.0)` alinhado à hitbox.
+- [x] Piscar de imunidade com alpha 0.2 e timers 3/1 de `PlayerAnimation.as:91-126`.
+- [x] Verificado visualmente no browser via `browser_subagent`: Billy renderizado no mapa Storage em IDLE ciclando 61 frames perfeitamente e caminhando à direita.
 
 ### Fase 4 — Câmera seguindo jogadores
 - [ ] Port de `GetCamArea` (bounds dos jogadores + `sizeIncrease 40`) ligado ao `Camera.ts` → Verify: câmera enquadra 2 jogadores sem sair de `mapArea`
