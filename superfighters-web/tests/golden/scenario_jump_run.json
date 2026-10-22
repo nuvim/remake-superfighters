@@ -1,0 +1,1202 @@
+[
+  {
+    "tick": 260,
+    "x": 121.6999999999999,
+    "y": 254.5,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 261,
+    "x": 123.3999999999998,
+    "y": 254.5,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 262,
+    "x": 125.09999999999971,
+    "y": 254.5,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 263,
+    "x": 126.79999999999961,
+    "y": 254.4,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 264,
+    "x": 128.49999999999952,
+    "y": 254.3,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 265,
+    "x": 130.19999999999942,
+    "y": 254.3,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 266,
+    "x": 131.89999999999932,
+    "y": 254.3,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 267,
+    "x": 133.59999999999923,
+    "y": 254.3,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 268,
+    "x": 135.29999999999913,
+    "y": 255.19999999999996,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 269,
+    "x": 136.99999999999903,
+    "y": 256.80000000000007,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 270,
+    "x": 138.69999999999894,
+    "y": 257.60000000000025,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 271,
+    "x": 140.39999999999884,
+    "y": 259.2000000000006,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 272,
+    "x": 142.09999999999874,
+    "y": 260.800000000001,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 273,
+    "x": 143.79999999999865,
+    "y": 261.60000000000116,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 274,
+    "x": 145.49999999999855,
+    "y": 263.2000000000015,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 275,
+    "x": 147.19999999999845,
+    "y": 264.0000000000017,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 276,
+    "x": 148.89999999999836,
+    "y": 265.60000000000207,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 277,
+    "x": 150.59999999999826,
+    "y": 266.40000000000225,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 278,
+    "x": 152.29999999999816,
+    "y": 268.0000000000026,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 279,
+    "x": 153.99999999999807,
+    "y": 268.8000000000028,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 280,
+    "x": 155.69999999999797,
+    "y": 264.0400000000028,
+    "airVelX": 0.0,
+    "airVelY": -4.3999999999999995,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 281,
+    "x": 157.39999999999787,
+    "y": 259.88000000000284,
+    "airVelX": 0.0,
+    "airVelY": -3.799999999999999,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 282,
+    "x": 159.09999999999778,
+    "y": 256.30500000000285,
+    "airVelX": 0.0,
+    "airVelY": -3.1999999999999993,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 283,
+    "x": 160.79999999999768,
+    "y": 253.33000000000285,
+    "airVelX": 0.0,
+    "airVelY": -2.5999999999999996,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 284,
+    "x": 162.49999999999758,
+    "y": 250.93000000000285,
+    "airVelX": 0.0,
+    "airVelY": -1.9999999999999993,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 285,
+    "x": 164.1999999999975,
+    "y": 249.08000000000285,
+    "airVelX": 0.0,
+    "airVelY": -1.3999999999999992,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 286,
+    "x": 165.8999999999974,
+    "y": 247.83000000000285,
+    "airVelX": 0.0,
+    "airVelY": -0.7999999999999992,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 287,
+    "x": 167.5999999999973,
+    "y": 247.03000000000284,
+    "airVelX": 0.0,
+    "airVelY": -0.19999999999999918,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 288,
+    "x": 169.2999999999972,
+    "y": 246.83000000000285,
+    "airVelX": 0.0,
+    "airVelY": 0.4000000000000008,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 289,
+    "x": 170.9999999999971,
+    "y": 247.23000000000286,
+    "airVelX": 0.0,
+    "airVelY": 1.0000000000000009,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 290,
+    "x": 172.699999999997,
+    "y": 248.38000000000287,
+    "airVelX": 0.0,
+    "airVelY": 1.600000000000001,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 291,
+    "x": 173.69999999999695,
+    "y": 250.13000000000287,
+    "airVelX": 0.0,
+    "airVelY": 2.200000000000001,
+    "onGround": false,
+    "jumping": true,
+    "falling": false
+  },
+  {
+    "tick": 292,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 293,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 294,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 295,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 296,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 297,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 298,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 299,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 300,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 301,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 302,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 303,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 304,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 305,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 306,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 307,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 308,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 309,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 310,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 311,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 312,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 313,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 314,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 315,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 316,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 317,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 318,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 319,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 320,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 321,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 322,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 323,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 324,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 325,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 326,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 327,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 328,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 329,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 330,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 331,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 332,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 333,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 334,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 335,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 336,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 337,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 338,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 339,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 340,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 341,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 342,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 343,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 344,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 345,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 346,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 347,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 348,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 349,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 350,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 351,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 352,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 353,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 354,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 355,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 356,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 357,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 358,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 359,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 360,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 361,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 362,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 363,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 364,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 365,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 366,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 367,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 368,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 369,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 370,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 371,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 372,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 373,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 374,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 375,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 376,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 377,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 378,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  },
+  {
+    "tick": 379,
+    "x": 173.69999999999695,
+    "y": 250.8633333333362,
+    "airVelX": 0.0,
+    "airVelY": 0.0,
+    "onGround": true,
+    "jumping": false,
+    "falling": false
+  }
+]

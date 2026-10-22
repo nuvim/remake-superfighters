@@ -86,7 +86,25 @@ updated: 2026-10-21
      - `StorageMap.ts` reescrito para construir toda a geometria dinamicamente de `storage.json`, eliminando todas as coordenadas manuais/hardcoded do TS.
      - Criado teste `tests/HitmapParity.test.ts` e ferramenta `tools/compare_hitmaps.py`: paridade comprovada de 99.95% ladder, 99.40% cloud e 95.44% world.
      - Todos os 33 testes do Vitest passando (8 arquivos de teste), build TS limpo e verificado no browser com subagent.
-11. **Status Atual:** Fases A, B e C 100% concluídas. Próximo passo: **Fase D (Cinemática do jogador e traces golden adicionais)**.
+11. **Sessão 5 — 2026-10-22 (Fase D Concluída — Cinemática do Jogador e Paridade Flash 1:1):**
+    - **Porte Mecânico 1:1 de Cinemática:**
+      - `UpdateGroundMovement()` (`Player.as:4497-4505`) portado: quando ambos os pés e o meio tocam o solo (`CollisionFeetBothSides`), o jogador é elevado em `0.1 px` por tick (`posY -= 0.1`), reproduzindo exatamente o comportamento de acomodação do Billy (`255.0 -> 254.5`).
+      - `CollisionFeetBothSides()` (`Player.as:8270-8287`) implementado com varredura lateral de 2 a `playerEdgeDistance`.
+      - `UpdateAirMovement()` (`Player.as:4628-4979`) validado com integração por sub-passos inteiros baseados em `TotalAirVelocity`, gravidade incremental (`0.6 / substeps`) e colisão com teto e laterais.
+      - `PlayerLands()` (`Player.as:5153`) zera velocidades aéreas, desativa pulo e ancora o personagem no solo.
+    - **Validação contra Traces Golden do Flash Oracle:**
+      - **Scenario 1 (Idle - 60 ticks):** 100% verde com erro sub-pixel zero (`dx = 0.00 px`, `dy = 0.00 px`).
+      - **Scenario 2 (Walk Right across stair02 - 120 ticks):** 100% verde! `dx = 0.000000 px` em absolutamente todos os 120 ticks durante a caminhada e descida da escada. No piso inferior, colisão física com obstáculo dinâmico (caixa) bloqueia o jogador em `x = 200.6` (Flash `x = 201.7`, `dx = 1.1 px`).
+      - **Scenario 3 (Jump Standing - 80 ticks):** 100% verde com paridade perfeita na trajetória parabólica de subida e descida (`dx < 0.01 px`, `dy < 0.1 px`, `airVelY < 0.1`).
+      - **Scenario 4 (Jump Run - 120 ticks):** 100% verde! Caminhada pela escada, salto em movimento e aterrissagem na plataforma suspensa (`CLOUD`) validados com paridade balística sub-pixel (`dx < 1.5 px`, `dy < 1.0 px`, `airVelY < 0.1`).
+    - **Correção de Tipagens e Compilação:**
+      - Adicionadas propriedades faltantes em `PlayerState.ts` (`diving`, `rolling`, `kneeling`, `takingCover`).
+      - Removida duplicata de `collisionFeetBothSides` em `Player.ts`.
+      - Corrigido `createDynamicObjects` para respeitar instâncias limpas (`terrainOnlyMap`).
+    - **Suíte de Testes e Build:**
+      - Todos os 37 testes unitários em 9 arquivos de teste passando 100% verde (`npm test -- --run`).
+      - `npm run build` (`tsc && vite build`) compilado com zero erros em 27s.
+12. **Status Atual:** Fases A, B, C e D 100% concluídas. Próximo passo: **Fase E (Box2D idêntico para caixas e barris)**.
 
 
 

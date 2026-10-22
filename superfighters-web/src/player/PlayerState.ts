@@ -32,9 +32,26 @@ export class PlayerState {
   public static readonly PIVOT_Y: number = 28;
 
   // Dimensões do corpo canônicas de PlayerState.as
-  public playerEdgeDistance: number = 6; // PlayerState.as:48
-  public playerHeight: number = 18; // PlayerState.as:46
-  public maxPlayerHeight: number = 18; // PlayerState.as:44
+  public playerEdgeDistance: number = 6; // PlayerState.as:16 (6px mantido para estabilidade de rampas/caixas)
+
+  /**
+   * MaxPlayerHeight getter 1:1 com PlayerState.as:430-433
+   */
+  public get maxPlayerHeight(): number {
+    return 18;
+  }
+
+  /**
+   * PlayerHeight getter 1:1 com PlayerState.as:435-460
+   */
+  public get playerHeight(): number {
+    if (this.diving) return 8;
+    if (this.knockdowned) return 10;
+    if (this.falling) return 12;
+    if (this.rolling) return 14;
+    if (this.kneeling || this.takingCover) return 12;
+    return 18;
+  }
 
   // Estado vital
   public hp: number = PlayerState.MAX_HEALTH;
@@ -48,22 +65,53 @@ export class PlayerState {
   public airVelocityX: number = 0;
   public airVelocityY: number = 0;
 
+  /**
+   * TotalAirVelocity getter 1:1 com PlayerState.as:1605-1608
+   */
+  public get totalAirVelocity(): number {
+    return Math.sqrt(this.airVelocityX * this.airVelocityX + this.airVelocityY * this.airVelocityY);
+  }
+
   // Direção de movimento (-1: esquerda, 0: parado, 1: direita)
   public movingDirectionX: number = 0;
   public lastDirX: number = 1; // 1 = direita, -1 = esquerda (Player.as:398)
 
   // Flags de controle de movimento e estado físico
-  public isGrounded: boolean = false;
   public jumping: boolean = false;
   public falling: boolean = false;
+  public climbing: boolean = false;
+
+  /**
+   * OnGround getter 1:1 com PlayerState.as:636-643
+   * return !this._falling && !this._jumping && !this._climbing;
+   */
+  public get onGround(): boolean {
+    return !this.falling && !this.jumping && !this.climbing;
+  }
+
+  /**
+   * Compatibilidade com interfaces anteriores
+   */
+  public get isGrounded(): boolean {
+    return this.onGround;
+  }
+
+  public set isGrounded(val: boolean) {
+    if (!val) {
+      this.jumping = true;
+    } else {
+      this.jumping = false;
+      this.falling = false;
+      this.climbing = false;
+    }
+  }
+  public climbingDirection: number = 0; // 1: descendo, -1: subindo
+  public sprinting: boolean = false;
+  public punching: boolean = false;
   public diving: boolean = false;
   public rolling: boolean = false;
   public kneeling: boolean = false;
   public takingCover: boolean = false;
-  public climbing: boolean = false;
-  public climbingDirection: number = 0; // 1: descendo, -1: subindo
-  public sprinting: boolean = false;
-  public punching: boolean = false;
   public kicking: boolean = false;
   public jumpKickPerformed: boolean = false;
   public knockdowned: boolean = false;

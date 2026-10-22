@@ -35,6 +35,11 @@ def prepare_patched_scripts():
         r'internal function frame1\(\)\s*:\s*\*[\s\S]*?this\.loaderInfo\.addEventListener\(ProgressEvent\.PROGRESS,this\.LoadingProgress\);\s*\}',
         '''internal function frame1() : *
       {
+         if (this._game != null || this.m_gameIsRunning)
+         {
+            stop();
+            return;
+         }
          trace("ORACLE: frame1 entered, directly instantiating Main!");
          this.m_lastFrame = -1;
          this.m_gameIsRunning = true;
@@ -54,8 +59,15 @@ def prepare_patched_scripts():
 
     mm = re.sub(
         r'public function StartMenuGame\(\)\s*:\s*void\s*\{[\s\S]*?this\._Handler_GameMain\.StartNewGame\(_loc3_\);\s*\}',
-        '''public function StartMenuGame() : void
+        '''private var _oracleGameStarted:Boolean = false;
+
+      public function StartMenuGame() : void
       {
+         if (this._oracleGameStarted)
+         {
+            return;
+         }
+         this._oracleGameStarted = true;
          this._player_choosen_skins = new Array();
          var _loc1_:PlayerSetupData = new PlayerSetupData();
          _loc1_.ot = this._Handler_Output;
@@ -275,9 +287,32 @@ def prepare_patched_scripts():
         '_graphic.gotoAndStop(1);\n         }\n      }',
         '_graphic.gotoAndStop(1);\n         }\n         } catch(e:*) {} }'
     )
+    ac = ac.replace(
+        'public static function Position(param1:Number, param2:Number, param3:Number, param4:Number) : void\n      {',
+        'public static function Position(param1:Number, param2:Number, param3:Number, param4:Number) : void\n      {\n         try {\n            if(_graphic == null) return;'
+    )
+    ac = ac.replace(
+        '_graphic.y = param4;\n         }\n      }',
+        '_graphic.y = param4;\n         }\n         } catch(e:*) {} }'
+    )
     patched_ac = os.path.join(TEMP_DIR, "Achievements.as")
     with open(patched_ac, "w", encoding="utf-8") as f:
         f.write(ac)
+
+    # 6d. GameMain.as
+    GAMEMAIN_AS = os.path.join(SCRIPTS_DIR, "Code/Handler/GameMain.as")
+    with open(GAMEMAIN_AS, "r", encoding="utf-8") as f:
+        gm = f.read()
+
+    gm = gm.replace(
+        'public function StartNewGame(param1:NewGameData) : void\n      {',
+        '''public function StartNewGame(param1:NewGameData) : void
+      {
+         try { if(this._stage != null) this._stage.removeEventListener(Event.ENTER_FRAME, this.Update); } catch(e:*) {}'''
+    )
+    patched_gm = os.path.join(TEMP_DIR, "GameMain.as")
+    with open(patched_gm, "w", encoding="utf-8") as f:
+        f.write(gm)
 
     # 7. PlayerAnimation.as
     with open(PLAYERANIMATION_AS, "r", encoding="utf-8") as f:
@@ -398,102 +433,194 @@ def prepare_patched_scripts():
         'if(this._char_gui != null) this._char_gui.scaleX = this.scaleX;\n               if(this._blood_gui != null) this._blood_gui.scaleX = this.scaleX;'
     )
 
-    # Streamed hitmap dumper (30 lines per tick) + tick tracing
-    hitmap_method = '''
-      public static var dbgTick:int = 0;
-      public static var hitmapY:int = -60;
-      public static var hitmapMode:int = 0; // 0: world, 1: cloud, 2: ladder, 3: done
+    pl = pl.replace(
+        'this._this_x += _loc4_ * this._game_speed;\n            if(this._PlayerState.OnGround)\n            {\n               this.UpdateSimpleGroundMovement(false);\n            }',
+        '''this._this_x += _loc4_ * this._game_speed;
+            if(this._PlayerState.OnGround)
+            {
+               this.UpdateSimpleGroundMovement(false);
+            }
+            if(this.playerTick == 67 || this.playerTick == 68)
+            {
+               trace("STEP:" + this.playerTick + "," + _loc5_ + "," + this._this_x + "," + this._this_y + ",cfm:" + this.CollisionFeetMid() + ",cfm01:" + this.CollisionFeetMid(0,1) + ",canLand:" + this.CanLandInMid());
+            }'''
+    )
 
-      public function DumpHitMap() : void
+    # Lock Player 0 spawn in Initialize
+    pl = pl.replace(
+        'public function Initialize(param1:PlayerAreaData) : void\n      {\n         this._MapArea = param1;',
+        '''public function Initialize(param1:PlayerAreaData) : void
       {
-         if (hitmapMode >= 3) return;
-         try
+         this._MapArea = param1;
+         if (this.PlayerNr == 0)
          {
-            if (hitmapMode == 0)
+            this.x = 120;
+            this.y = 255;
+         }'''
+    )
+
+    # Intercept UpdateEventPC for player 0
+    pl = pl.replace(
+        'if(!this._bot)\n         {\n            this.UpdateEventPC();\n         }',
+        '''if(!this._bot)
+         {
+            if(this._players != null && this._players.length > 0 && this == this._players[0])
             {
-               if (hitmapY == -60) trace("START_HITMAP_WORLD");
-               for (var i:int = 0; i < 30 && hitmapY < 700; i++, hitmapY++)
-               {
-                  var row:String = "";
-                  for (var xx:int = 0; xx < 1050; xx++)
-                  {
-                     row += (this._static_world_hitbox_mc.hitTestPoint(xx * 0.5, hitmapY * 0.5, true) ? "1" : "0");
-                  }
-                  trace("HMW," + hitmapY + "," + row);
-               }
-               if (hitmapY >= 700)
-               {
-                  trace("END_HITMAP_WORLD");
-                  hitmapMode = 1;
-                  hitmapY = -60;
-               }
+               this.ApplyScenarioInput();
             }
-            else if (hitmapMode == 1)
+            else
             {
-               if (hitmapY == -60) trace("START_HITMAP_CLOUD");
-               for (var ic:int = 0; ic < 30 && hitmapY < 700; ic++, hitmapY++)
-               {
-                  var rowc:String = "";
-                  for (var xxc:int = 0; xxc < 1050; xxc++)
-                  {
-                     rowc += (this._static_world_cloud_hitbox_mc.hitTestPoint(xxc * 0.5, hitmapY * 0.5, true) ? "1" : "0");
-                  }
-                  trace("HMC," + hitmapY + "," + rowc);
-               }
-               if (hitmapY >= 700)
-               {
-                  trace("END_HITMAP_CLOUD");
-                  hitmapMode = 2;
-                  hitmapY = -60;
-               }
+               this.UpdateEventPC();
             }
-            else if (hitmapMode == 2)
+         }'''
+    )
+
+    # Instance tick variable and ApplyScenarioInput
+    scenario_methods = '''
+      public var playerTick:int = 0;
+
+      public function ApplyScenarioInput() : void
+      {
+         var curTick:int = this.playerTick;
+         for (var k:int = 0; k < this._keyPressed.length; k++) {
+            this._keyPressed[k] = false;
+         }
+
+         // Scenario 1: idle (0..60) -> no keys pressed
+
+         // Scenario 2: walk_right (60..180)
+         if (curTick >= 60 && curTick < 180)
+         {
+            if (curTick == 60)
             {
-               if (hitmapY == -60) trace("START_HITMAP_LADDER");
-               for (var il:int = 0; il < 30 && hitmapY < 700; il++, hitmapY++)
-               {
-                  var rowl:String = "";
-                  for (var xxl:int = 0; xxl < 1050; xxl++)
-                  {
-                     rowl += (this._static_ladder_hitbox_mc.hitTestPoint(xxl * 0.5, hitmapY * 0.5, true) ? "1" : "0");
-                  }
-                  trace("HML," + hitmapY + "," + rowl);
-               }
-               if (hitmapY >= 700)
-               {
-                  trace("END_HITMAP_LADDER");
-                  hitmapMode = 3;
-                  trace("END_HITMAP");
-               }
+               this.x = 120;
+               this.y = 254.5;
+               this._this_x = 120;
+               this._this_y = 254.5;
+               this._old_this_x = 120;
+               this._old_this_y = 254.5;
+               this._PlayerState.AirVelocityX = 0;
+               this._PlayerState.AirVelocityY = 0;
+               this._PlayerState.Jumping = false;
+               this._PlayerState.Falling = false;
+            }
+            if (curTick < 160)
+            {
+               this._keyPressed[3] = true; // Key right
             }
          }
-         catch (e:*)
+         // Scenario 3: jump_standing (180..260)
+         else if (curTick >= 180 && curTick < 260)
          {
-            trace("HITMAP_ERR: " + e);
+            if (curTick == 180)
+            {
+               this.x = 120;
+               this.y = 254.5;
+               this._this_x = 120;
+               this._this_y = 254.5;
+               this._old_this_x = 120;
+               this._old_this_y = 254.5;
+               this._PlayerState.AirVelocityX = 0;
+               this._PlayerState.AirVelocityY = 0;
+               this._PlayerState.Jumping = false;
+               this._PlayerState.Falling = false;
+            }
+            if (curTick == 190)
+            {
+               this.Jump();
+            }
+            if (curTick >= 190 && curTick < 194)
+            {
+               this._keyPressed[0] = true; // Jump held
+               this._keyPressed[8] = true;
+            }
+         }
+         // Scenario 4: jump_run (260..380)
+         else if (curTick >= 260 && curTick < 380)
+         {
+            if (curTick == 260)
+            {
+               this.x = 120;
+               this.y = 254.5;
+               this._this_x = 120;
+               this._this_y = 254.5;
+               this._old_this_x = 120;
+               this._old_this_y = 254.5;
+               this._PlayerState.AirVelocityX = 0;
+               this._PlayerState.AirVelocityY = 0;
+               this._PlayerState.Jumping = false;
+               this._PlayerState.Falling = false;
+            }
+            if (curTick < 350)
+            {
+               this._keyPressed[3] = true; // Key right
+            }
+            if (curTick == 280)
+            {
+               this.Jump();
+            }
+            if (curTick >= 280 && curTick < 284)
+            {
+               this._keyPressed[0] = true; // Jump held
+               this._keyPressed[8] = true;
+            }
+         }
+         // Scenario 5: walk_stair_down (380..500)
+         else if (curTick >= 380 && curTick < 500)
+         {
+            if (curTick == 380)
+            {
+               this.x = 120;
+               this.y = 254.5;
+               this._this_x = 120;
+               this._this_y = 254.5;
+               this._old_this_x = 120;
+               this._old_this_y = 254.5;
+               this._PlayerState.AirVelocityX = 0;
+               this._PlayerState.AirVelocityY = 0;
+               this._PlayerState.Jumping = false;
+               this._PlayerState.Falling = false;
+            }
+            if (curTick < 480)
+            {
+               this._keyPressed[2] = true; // Key left (down stair)
+            }
          }
       }
 '''
     last_brace = pl.rfind("}")
     last_second_brace = pl.rfind("}", 0, last_brace)
-    pl = pl[:last_second_brace] + hitmap_method + "\n" + pl[last_second_brace:]
+    pl = pl[:last_second_brace] + scenario_methods + "\n" + pl[last_second_brace:]
 
-    # Inject DumpHitMap and tick trace at the end of Player.Update
+    # Inject tick trace at the end of Player.Update
     target_str = """         this._PlayerAnimation.ProgressAnimation(this._game_speed);
          this._PlayerBars.Update(this.x,this.y,this._dynamic_mc.scaleX);"""
     trace_call = """         try { this._PlayerAnimation.ProgressAnimation(this._game_speed); } catch(e:*) {}
          try { this._PlayerBars.Update(this.x,this.y,this._dynamic_mc.scaleX); } catch(e:*) {}
-         this.DumpHitMap();
-         trace("T," + (Player.dbgTick++) + "," + this._this_x + "," + this._this_y + "," + this._PlayerState.AirVelocityX + "," + this._PlayerState.AirVelocityY + "," + (this._PlayerState.OnGround ? 1 : 0) + "," + (this._PlayerState.Jumping ? 1 : 0) + "," + (this._PlayerState.Falling ? 1 : 0));"""
+         if (this._players != null && this._players.length > 0 && this == this._players[0])
+         {
+            var curTick:int = this.playerTick;
+            var scName:String = "idle";
+            if (curTick < 60) scName = "idle";
+            else if (curTick < 180) scName = "walk_right";
+            else if (curTick < 260) scName = "jump_standing";
+            else if (curTick < 380) scName = "jump_run";
+            else if (curTick < 500) scName = "walk_stair_down";
+            else scName = "done";
+
+            trace("T," + scName + "," + curTick + "," + this._this_x + "," + this._this_y + "," + this._PlayerState.AirVelocityX + "," + this._PlayerState.AirVelocityY + "," + (this._PlayerState.OnGround ? 1 : 0) + "," + (this._PlayerState.Jumping ? 1 : 0) + "," + (this._PlayerState.Falling ? 1 : 0));
+            this.playerTick++;
+         }"""
     pl = pl.replace(target_str, trace_call)
 
     patched_pl = os.path.join(TEMP_DIR, "Player.as")
     with open(patched_pl, "w", encoding="utf-8") as f:
         f.write(pl)
 
-    return patched_mt, patched_mm, patched_pk, patched_pg, patched_pb, patched_st, patched_sb, patched_ac, patched_pa, patched_pl
+    return patched_mt, patched_mm, patched_pk, patched_pg, patched_pb, patched_st, patched_sb, patched_ac, patched_gm, patched_pa, patched_pl
 
 if __name__ == "__main__":
-    mt, mm, pk, pg, pb, st, sb, ac, pa, pl = prepare_patched_scripts()
+    mt, mm, pk, pg, pb, st, sb, ac, gm, pa, pl = prepare_patched_scripts()
     print(f"Patched scripts prepared in {TEMP_DIR}")
     
     cmd = [
@@ -509,6 +636,7 @@ if __name__ == "__main__":
         "Code.Data.ScoreboardTeam", st,
         "Code.Handler.Scoreboard", sb,
         "Code.Handler.Achievements", ac,
+        "Code.Handler.GameMain", gm,
         "Code.Data.Players.PlayerAnimation", pa,
         "Code.Data.Players.Player", pl
     ]
@@ -522,3 +650,4 @@ if __name__ == "__main__":
     else:
         print(f"FAILED with code {res.returncode}")
         sys.exit(1)
+

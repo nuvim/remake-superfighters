@@ -316,7 +316,26 @@ export class StorageMap {
       p1x = p2x;
       p1y = p2y;
     }
-    return inside;
+    if (inside) return true;
+
+    // Stroke 0.5px de DrawPolyMC (MapPremadeItems.as:2865) -> raio de 0.25px (0.25^2 = 0.0625)
+    for (let i = 0; i < n; i++) {
+      const p1 = verts[i];
+      const p2 = verts[(i + 1) % n];
+      const dx = p2[0] - p1[0];
+      const dy = p2[1] - p1[1];
+      const l2 = dx * dx + dy * dy;
+      if (l2 === 0) continue;
+      let t = ((x - p1[0]) * dx + (y - p1[1]) * dy) / l2;
+      t = Math.max(0, Math.min(1, t));
+      const qx = p1[0] + t * dx;
+      const qy = p1[1] + t * dy;
+      const d2 = (x - qx) * (x - qx) + (y - qy) * (y - qy);
+      // Stroke 0.5px de DrawPolyMC (MapPremadeItems.as:2865) com caps/joints circulares de 0.5px
+      if (d2 <= 0.25) return true;
+    }
+
+    return false;
   }
 
   /**
@@ -328,10 +347,11 @@ export class StorageMap {
     // 1. Caixas estáticas sólidas (material ground ou metal com type NONE)
     for (const b of this.groundBoxes) {
       if (b.type !== 'NONE') continue;
-      const minX = (b.x - b.width / 2) * 30.0 - 0.25;
-      const maxX = (b.x + b.width / 2) * 30.0 + 0.25;
-      const minY = (b.y - b.height / 2) * 30.0 - 0.25;
-      const maxY = (b.y + b.height / 2) * 30.0 + 0.25;
+      // Expansão 1:1 com MapPremadeItems.as:171 (+0.5/30 Box2D) e DrawBoxMC lineStyle 0.5 (+0.25px stroke) => 0.5px total
+      const minX = (b.x - b.width / 2) * 30.0 - 0.5;
+      const maxX = (b.x + b.width / 2) * 30.0 + 0.5;
+      const minY = (b.y - b.height / 2) * 30.0 - 0.5;
+      const maxY = (b.y + b.height / 2) * 30.0 + 0.5;
       if (x >= minX && x <= maxX && y >= minY && y <= maxY) return true;
     }
 

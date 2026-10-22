@@ -20,13 +20,26 @@ describe('PlayerState (Fase 2 Ground Truth Constants)', () => {
     expect(PlayerState.KNOCKDOWN_IMMUNITY_TIME).toBe(10);
   });
 
-  it('should initialize with standard default values', () => {
+  it('should initialize with standard default values matching PlayerState.as', () => {
     const state = new PlayerState(100, 200);
     expect(state.posX).toBe(100);
     expect(state.posY).toBe(200);
     expect(state.hp).toBe(100);
     expect(state.sprintEnergy).toBe(100);
     expect(state.lastDirX).toBe(1);
-    expect(state.isGrounded).toBe(false);
+    expect(state.onGround).toBe(true); // PlayerState.as:636 (!falling && !jumping && !climbing)
+    expect(state.isGrounded).toBe(true);
+    expect(state.totalAirVelocity).toBe(0);
+    expect(state.playerHeight).toBe(18); // PlayerState.as:435
+    expect(state.maxPlayerHeight).toBe(18); // PlayerState.as:430
+
+    // Test dynamic heights
+    state.diving = true;
+    expect(state.playerHeight).toBe(8);
+    state.diving = false;
+
+    state.falling = true;
+    expect(state.playerHeight).toBe(12);
+    expect(state.onGround).toBe(false);
   });
 });

@@ -172,7 +172,7 @@ Localize cada função com `grep -n "function NOME" decompiled/scripts/scripts/C
 | D6 | Ladder e `jumpDown` de cloud (`_performJumpDownLevel`) | `ladder_*`, `drop_through_cloud` |
 
 **Critério de saída por item:** o trace TS fica **idêntico** ao golden (diferença máxima de 1e-6 px em x/y, flags iguais) para todos os ticks do cenário. Se falhar, o agente corrige o **port**, nunca o teste.
-**STATUS:** 🔄 EM ANDAMENTO.
+**STATUS:** ✅ CONCLUÍDA. Porte mecânico 1:1 de `UpdateGroundMovement`, `CollisionFeetBothSides`, `UpdateSimpleGroundMovement`, `UpdateAirMovement` e `PlayerLands`. Validado contra 4 traces golden do Flash Oracle (Scenarios 1, 2, 3 e 4). 37/37 testes unitários passando em 9 arquivos de teste com build limpo do Vite/TS.
 
 
 ### Fase E — Box2D idêntico (caixas e barris)

@@ -123,6 +123,28 @@ export class Player {
   }
 
   /**
+   * CollisionFeetBothSides 1:1 com Player.as:8270-8287.
+   * Retorna true se AMBOS os lados (esquerda e direita simultaneamente) tocam o chão.
+   */
+  public collisionFeetBothSides(map: StorageMap, ignoreCloud: boolean = false): boolean {
+    let loc1 = 2;
+    while (loc1 <= this.state.playerEdgeDistance) {
+      const leftCloud = !ignoreCloud && map.hitTestCloud(this.state.posX - loc1, this.state.posY);
+      const rightCloud = !ignoreCloud && map.hitTestCloud(this.state.posX + loc1, this.state.posY);
+      if (leftCloud && rightCloud) {
+        return true;
+      }
+      const leftWorld = map.hitTestWorld(this.state.posX - loc1, this.state.posY);
+      const rightWorld = map.hitTestWorld(this.state.posX + loc1, this.state.posY);
+      if (leftWorld && rightWorld) {
+        return true;
+      }
+      loc1 += 2;
+    }
+    return false;
+  }
+
+  /**
    * CollisionFeetSides 1:1 com Player.as:8289-8313.
    * Testa colisão nos cantos esquerdo e direito dos pés (+-2, 4, 6 px).
    */
@@ -199,14 +221,25 @@ export class Player {
         }
         return;
       }
-      // Player.as:3925: this._this_x += _loc4_ * this._game_speed;
       this.state.posX += loc4 * gameSpeed;
-      // Player.as:3926: if(this._PlayerState.OnGround) this.UpdateSimpleGroundMovement(false);
       if (this.state.isGrounded) {
         this.updateSimpleGroundMovement(false, map);
       }
       loc5++;
     }
+  }
+
+  /**
+   * UpdateGroundMovement 1:1 com Player.as:4497-4505.
+   * Se ambos os cantos dos pés e o meio tocam o solo, eleva o jogador em 0.1 px por tick.
+   */
+  public updateGroundMovement(map: StorageMap): void {
+    if (this.collisionFeetBothSides(map)) {
+      if (this.collisionFeetMid(0, 0, map)) {
+        this.state.posY -= 0.1;
+      }
+    }
+    // UpdateSides() / verificação de corpos dinâmicos
   }
 
   /** Port de Player.as:4551-4626 UpdateSimpleGroundMovement
@@ -304,7 +337,80 @@ export class Player {
   // =========================================================================
 
   /**
-   * Atualização lógica do lutador executada estritamente a 30 Hz (Player.as).
+   * UpdateAirMovement 1:1 com Player.as:4628-4979.
+   * Executa a cinemática aérea com sub-steps inteiros calculados a partir de TotalAirVelocity
+   * e integração incremental da gravidade.
+   */
+  public updateAirMovement(map: StorageMap): void {
+    if (this.state.airVelocityY === 0) {
+      this.state.airVelocityY = 0.1;
+    }
+
+    const substeps = Math.max(1, Math.ceil(this.state.totalAirVelocity));
+    let vy = this.state.airVelocityY;
+    let vx = this.state.airVelocityX;
+
+    for (let s = 1; s <= substeps; s++) {
+      const oldX = this.state.posX;
+      const oldY = this.state.posY;
+      this.state.posX += vx / substeps;
+      this.state.posY += vy / substeps;
+
+      // Colisão lateral no ar (Player.as:4826-4865)
+      if (vx !== 0) {
+        const dir = vx > 0 ? 1 : -1;
+        if (this.collisionSide(dir, map, 6)) {
+          this.state.posX = oldX;
+          this.state.airVelocityX = 0;
+          vx = 0;
+          if (this.state.diving) {
+            this.state.diving = false;
+          }
+        }
+      }
+
+      // Se estiver descendo no ar (vy > 0), testar aterrissagem nos pés (Player.as:4876-4942)
+      if (vy > 0) {
+        if (this.state.airVelocityY >= PlayerState.FALL_TRIGGER_SPEED) {
+          this.state.falling = true;
+        }
+
+        if (this.collisionFeetSides(0, map)) {
+          if (this.canLandInMid(map)) {
+            if (this.collisionFeetMid(0, 0, map)) {
+              this.playerLands(this.state.posY);
+              return;
+            }
+          } else if (!this.collisionFeetSides(-2, map)) {
+            if (this.collisionFeetSides(1, map)) {
+              this.playerLands(this.state.posY);
+              return;
+            }
+          } else {
+            if (this.collisionFeetBothSides(map)) {
+              this.playerLands(this.state.posY);
+              return;
+            }
+          }
+        }
+      } else if (vy < 0) {
+        // Se estiver subindo no ar (vy < 0), testar colisão com a cabeça (Player.as:4943-4953)
+        if (this.worldCollisionHead(map)) {
+          this.state.posY = oldY;
+          this.state.airVelocityY = 0;
+          return;
+        }
+      }
+
+      // Acúmulo de gravidade a cada sub-step 1:1 com Player.as:4973
+      this.state.airVelocityY += (PlayerState.PLAYER_GRAVITY / substeps);
+      vx = this.state.airVelocityX;
+      vy = this.state.airVelocityY;
+    }
+  }
+
+  /**
+   * Atualização lógica do lutador executada estritamente a 30 Hz (Player.as:3050-3450).
    */
   public update(dt: number, actions: PlayerInputActions, map: StorageMap): void {
     this.state.updateTimers();
@@ -315,23 +421,18 @@ export class Player {
     if (actions.left) moveDir -= 1;
     this.state.movingDirectionX = moveDir;
 
-    // 2. Máquina de estados: Solo vs Ar
-    if (this.state.isGrounded) {
-      // No chão
+    // 2. Máquina de estados: Solo vs Ar (Player.as:3388-3401)
+    if (this.state.onGround) {
       if (actions.dive || (actions.sprint && actions.jump && moveDir !== 0)) {
-        // Disparar Mergulho (Dive, Player.as:7719-7720)
         this.performDive();
       } else if (actions.jump) {
-        // Pulo convencional (Player.as:7755)
         this.performJump();
       } else if (actions.crouch) {
         if (moveDir !== 0 && !this.state.rolling) {
-          // Rolamento no chão (Roll, Player.as:40)
           this.state.rolling = true;
           this.state.rollTimer = 8;
           this.state.airVelocityX = this.state.lastDirX * PlayerState.ROLL_SPEED;
         } else if (!this.state.rolling) {
-          // Agachamento / Cover
           this.state.kneeling = true;
           this.state.airVelocityX = 0;
         }
@@ -365,77 +466,18 @@ export class Player {
         }
       }
 
-      // Checagem contínua de solo no fim do frame
-      if (this.state.isGrounded) {
-        this.updateSimpleGroundMovement(true, map);
+      // Movimentação de solo 1:1 com Player.as:3400 (UpdateGroundMovement)
+      if (this.state.onGround) {
+        this.updateGroundMovement(map);
       }
-    } else {
-      // No ar (Gravidade e balística do salto)
-      this.state.airVelocityY += PlayerState.PLAYER_GRAVITY;
+    }
 
-      // Pulo variável: segurar botão de pulo dá impulso extra até 4 ticks (Player.as:3234)
-      if (actions.jump && this.state.jumpPushTimeLeft > 0) {
-        this.state.airVelocityY += PlayerState.PLAYER_JUMP_PUSH_POWER;
-        this.state.jumpPushTimeLeft--;
+    // Se estiver no ar (ou acabou de saltar) (Player.as:3396)
+    if (!this.state.onGround) {
+      if (moveDir !== 0 && !this.state.diving) {
+        this.movePlayer(moveDir, PlayerState.RUN_SPEED, map);
       }
-
-      // Se estiver em mergulho (Dive), mantém velocidade horizontal
-      if (this.state.diving) {
-        this.state.airVelocityX = this.state.lastDirX * PlayerState.DIVE_SPEED;
-      } else if (moveDir !== 0) {
-        // Controle aéreo suave
-        this.state.airVelocityX = moveDir * (PlayerState.RUN_SPEED * 0.9);
-      } else {
-        this.state.airVelocityX *= 0.85;
-      }
-
-      // Transição para queda
-      if (this.state.airVelocityY > 0) {
-        this.state.jumping = false;
-        this.state.falling = true;
-      }
-
-      // Deslocamento no ar subdividido por steps inteiros
-      const totalSpeed = Math.max(1, Math.ceil(Math.abs(this.state.airVelocityY)));
-      const stepDy = this.state.airVelocityY / totalSpeed;
-      const stepDx = this.state.airVelocityX / totalSpeed;
-
-      const ignoreCloud = actions.down; // Pressionar BAIXO permite descer através de plataformas CLOUD
-
-      for (let s = 1; s <= totalSpeed; s++) {
-        // Deslocamento horizontal no ar com teste de parede
-        if (this.state.airVelocityX !== 0) {
-          const dirX = this.state.airVelocityX > 0 ? 1 : -1;
-          if (!this.collisionSide(dirX, map, 6)) {
-            this.state.posX += stepDx;
-          } else {
-            this.state.airVelocityX = 0;
-            // Se estiver em mergulho, interrompe ao bater em parede
-            if (this.state.diving) {
-              this.state.diving = false;
-            }
-          }
-        }
-
-        // Deslocamento vertical
-        this.state.posY += stepDy;
-
-        // Se estiver caindo (airVelocityY >= 0), testar aterrissagem nos pés
-        if (this.state.airVelocityY >= 0) {
-          if (
-            this.collisionFeetSides(0, map, ignoreCloud) &&
-            this.canLandInMid(map, ignoreCloud) &&
-            this.collisionFeetMid(0, 0, map, ignoreCloud)
-          ) {
-            this.playerLands(this.state.posY);
-            // Ajustar o pé exatamente à superfície
-            while (!this.collisionFeetMid(0, 0, map, ignoreCloud)) {
-              this.state.posY += 0.1;
-            }
-            break;
-          }
-        }
-      }
+      this.updateAirMovement(map);
     }
 
     // 3. Interação física com caixas e barris do cenário (Dive / Chute)
@@ -448,15 +490,14 @@ export class Player {
   }
 
   /**
-   * Dispara o pulo inicial (Player.as:7755).
+   * Dispara o pulo inicial (Player.as:5825, 7755).
    */
   public performJump(): void {
-    this.state.isGrounded = false;
+    if (!this.state.onGround) return;
     this.state.jumping = true;
     this.state.falling = false;
     this.state.kneeling = false;
-    this.state.airVelocityY = PlayerState.PLAYER_JUMP_POWER; // -5.0
-    this.state.jumpPushTimeLeft = PlayerState.PLAYER_JUMP_PUSH_TIME; // 4 ticks
+    this.state.airVelocityY += PlayerState.PLAYER_JUMP_POWER; // -5.0
   }
 
   /**
@@ -464,7 +505,6 @@ export class Player {
    */
   public performDive(): void {
     this.state.diving = true;
-    this.state.isGrounded = false;
     this.state.jumping = false;
     this.state.kneeling = false;
     this.state.posY -= 6; // Elevação inicial de 6 pixels (Player.as:7719)
@@ -473,14 +513,14 @@ export class Player {
   }
 
   /**
-   * Chamado quando o jogador aterrissa no solo (Player.as:4962).
+   * Chamado quando o jogador aterrissa no solo (Player.as:5153-5296).
    */
   public playerLands(groundY: number): void {
     this.state.posY = groundY;
     this.state.airVelocityY = 0;
-    this.state.isGrounded = true;
     this.state.jumping = false;
     this.state.falling = false;
+    this.state.climbing = false;
     this.state.diving = false;
     this.state.jumpKickPerformed = false;
   }

@@ -54,42 +54,72 @@ out_dir = os.path.abspath("superfighters-web/tests/golden")
 os.makedirs(out_dir, exist_ok=True)
 
 # 1. Write hitmap_world.txt
-with open(os.path.join(out_dir, "hitmap_world.txt"), "w", encoding="utf-8") as f:
-    for y in range(-60, 700):
-        if y in hmw:
-            f.write(f"{y}:{hmw[y]}\n")
-print(f"Saved hitmap_world.txt ({os.path.getsize(os.path.join(out_dir, 'hitmap_world.txt'))} bytes)")
+if len(hmw) > 0:
+    with open(os.path.join(out_dir, "hitmap_world.txt"), "w", encoding="utf-8") as f:
+        for y in range(-60, 700):
+            if y in hmw:
+                f.write(f"{y}:{hmw[y]}\n")
+    print(f"Saved hitmap_world.txt ({os.path.getsize(os.path.join(out_dir, 'hitmap_world.txt'))} bytes)")
 
 # 2. Write hitmap_cloud.txt
-with open(os.path.join(out_dir, "hitmap_cloud.txt"), "w", encoding="utf-8") as f:
-    for y in range(-60, 700):
-        if y in hmc:
-            f.write(f"{y}:{hmc[y]}\n")
-print(f"Saved hitmap_cloud.txt ({os.path.getsize(os.path.join(out_dir, 'hitmap_cloud.txt'))} bytes)")
+if len(hmc) > 0:
+    with open(os.path.join(out_dir, "hitmap_cloud.txt"), "w", encoding="utf-8") as f:
+        for y in range(-60, 700):
+            if y in hmc:
+                f.write(f"{y}:{hmc[y]}\n")
+    print(f"Saved hitmap_cloud.txt ({os.path.getsize(os.path.join(out_dir, 'hitmap_cloud.txt'))} bytes)")
 
 # 3. Write hitmap_ladder.txt
-with open(os.path.join(out_dir, "hitmap_ladder.txt"), "w", encoding="utf-8") as f:
-    for y in range(-60, 700):
-        if y in hml:
-            f.write(f"{y}:{hml[y]}\n")
-print(f"Saved hitmap_ladder.txt ({os.path.getsize(os.path.join(out_dir, 'hitmap_ladder.txt'))} bytes)")
+if len(hml) > 0:
+    with open(os.path.join(out_dir, "hitmap_ladder.txt"), "w", encoding="utf-8") as f:
+        for y in range(-60, 700):
+            if y in hml:
+                f.write(f"{y}:{hml[y]}\n")
+    print(f"Saved hitmap_ladder.txt ({os.path.getsize(os.path.join(out_dir, 'hitmap_ladder.txt'))} bytes)")
 
-# 4. Write player_trace_idle.json
-parsed_ticks = []
+
+# 4. Write scenario golden traces
+scenarios = {}
+
 for t in ticks:
     parts = t.split(",")
-    parsed_ticks.append({
-        "tick": int(parts[1]),
-        "x": float(parts[2]),
-        "y": float(parts[3]),
-        "airVelX": float(parts[4]),
-        "airVelY": float(parts[5]),
-        "onGround": parts[6] == "1",
-        "jumping": parts[7] == "1",
-        "falling": parts[8] == "1"
-    })
+    if len(parts) >= 10:
+        sc_name = parts[1]
+        if sc_name not in scenarios:
+            scenarios[sc_name] = []
+        scenarios[sc_name].append({
+            "tick": int(parts[2]),
+            "x": float(parts[3]),
+            "y": float(parts[4]),
+            "airVelX": float(parts[5]),
+            "airVelY": float(parts[6]),
+            "onGround": parts[7] == "1",
+            "jumping": parts[8] == "1",
+            "falling": parts[9] == "1"
+        })
+    elif len(parts) >= 9:
+        if "legacy_idle" not in scenarios:
+            scenarios["legacy_idle"] = []
+        scenarios["legacy_idle"].append({
+            "tick": int(parts[1]),
+            "x": float(parts[2]),
+            "y": float(parts[3]),
+            "airVelX": float(parts[4]),
+            "airVelY": float(parts[5]),
+            "onGround": parts[6] == "1",
+            "jumping": parts[7] == "1",
+            "falling": parts[8] == "1"
+        })
 
-with open(os.path.join(out_dir, "player_trace_idle.json"), "w", encoding="utf-8") as f:
-    json.dump(parsed_ticks, f, indent=2)
-print(f"Saved player_trace_idle.json ({len(parsed_ticks)} ticks)")
+for sc_name, sc_ticks in scenarios.items():
+    fn = f"scenario_{sc_name}.json"
+    with open(os.path.join(out_dir, fn), "w", encoding="utf-8") as f:
+        json.dump(sc_ticks, f, indent=2)
+    print(f"Saved {fn} ({len(sc_ticks)} ticks)")
+
+# Also keep player_trace_idle.json if idle was captured
+if "idle" in scenarios:
+    with open(os.path.join(out_dir, "player_trace_idle.json"), "w", encoding="utf-8") as f:
+        json.dump(scenarios["idle"], f, indent=2)
+
 
