@@ -1,0 +1,1412 @@
+{
+  "mapName": "STORAGE",
+  "mapArea": {
+    "x": 23,
+    "y": -26,
+    "width": 477,
+    "height": 365
+  },
+  "playerSpawns": [
+    {
+      "x": 130,
+      "y": 247
+    },
+    {
+      "x": 336,
+      "y": 248
+    },
+    {
+      "x": 234,
+      "y": 266
+    },
+    {
+      "x": 244,
+      "y": 136
+    },
+    {
+      "x": 116,
+      "y": 175
+    },
+    {
+      "x": 423,
+      "y": 182
+    },
+    {
+      "x": 368,
+      "y": 132
+    },
+    {
+      "x": 272,
+      "y": 137
+    },
+    {
+      "x": 212,
+      "y": 135
+    },
+    {
+      "x": 84,
+      "y": 175
+    },
+    {
+      "x": 196,
+      "y": 198
+    },
+    {
+      "x": 245,
+      "y": 198
+    },
+    {
+      "x": 271,
+      "y": 265
+    },
+    {
+      "x": 192,
+      "y": 264
+    },
+    {
+      "x": 450,
+      "y": 132
+    },
+    {
+      "x": 394,
+      "y": 247
+    },
+    {
+      "x": 149,
+      "y": 175
+    },
+    {
+      "x": 368,
+      "y": 224
+    },
+    {
+      "x": 417,
+      "y": 223
+    },
+    {
+      "x": 417,
+      "y": 201
+    },
+    {
+      "x": 369,
+      "y": 200
+    },
+    {
+      "x": 197,
+      "y": 220
+    },
+    {
+      "x": 199,
+      "y": 241
+    },
+    {
+      "x": 246,
+      "y": 240
+    },
+    {
+      "x": 77,
+      "y": 248
+    },
+    {
+      "x": 395,
+      "y": 133
+    }
+  ],
+  "weaponSpawns": [
+    {
+      "x": 197,
+      "y": 161,
+      "chances": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "x": 125,
+      "y": 106,
+      "chances": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "x": 366,
+      "y": 136,
+      "chances": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "x": 120,
+      "y": 250,
+      "chances": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "x": 385,
+      "y": 184,
+      "chances": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "x": 246,
+      "y": 224,
+      "chances": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "portals": [
+    {
+      "rect1": {
+        "x": 467,
+        "y": 117,
+        "width": 17,
+        "height": 24
+      },
+      "rect2": {
+        "x": 467,
+        "y": 165,
+        "width": 17,
+        "height": 24
+      },
+      "dir": {
+        "x": 1,
+        "y": 0
+      },
+      "allowPlayers": true,
+      "allowObjects": false
+    },
+    {
+      "rect1": {
+        "x": 467,
+        "y": 165,
+        "width": 17,
+        "height": 24
+      },
+      "rect2": {
+        "x": 467,
+        "y": 117,
+        "width": 17,
+        "height": 24
+      },
+      "dir": {
+        "x": 1,
+        "y": 0
+      },
+      "allowPlayers": true,
+      "allowObjects": false
+    }
+  ],
+  "groundBoxes": [
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 5.883333333333334,
+      "y": 0.8833333333333333,
+      "angle": 0,
+      "rawWidth": 11.7,
+      "rawHeight": 1.7,
+      "widthExpanded": 11.716666666666667,
+      "heightExpanded": 1.7166666666666666,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 14.366666666666667,
+      "y": 1.3833333333333333,
+      "angle": 0,
+      "rawWidth": 6.133333333333334,
+      "rawHeight": 2.7,
+      "widthExpanded": 6.15,
+      "heightExpanded": 2.716666666666667,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 11.5,
+      "y": 3.1333333333333333,
+      "angle": 0,
+      "rawWidth": 0.4,
+      "rawHeight": 0.8,
+      "widthExpanded": 0.4166666666666667,
+      "heightExpanded": 0.8166666666666668,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 16.5,
+      "y": 3.316666666666667,
+      "angle": 0,
+      "rawWidth": 1.8666666666666667,
+      "rawHeight": 1.1666666666666667,
+      "widthExpanded": 1.8833333333333333,
+      "heightExpanded": 1.1833333333333333,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 13.716666666666667,
+      "y": 4.9,
+      "angle": 0,
+      "rawWidth": 4.833333333333333,
+      "rawHeight": 0.4,
+      "widthExpanded": 4.85,
+      "heightExpanded": 0.4166666666666667,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 16.783333333333335,
+      "y": 5.1,
+      "angle": 0,
+      "rawWidth": 1.3,
+      "rawHeight": 2.4,
+      "widthExpanded": 1.3166666666666667,
+      "heightExpanded": 2.4166666666666665,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 16.5,
+      "y": 8.633333333333333,
+      "angle": 0,
+      "rawWidth": 1.8666666666666667,
+      "rawHeight": 4.666666666666667,
+      "widthExpanded": 1.8833333333333333,
+      "heightExpanded": 4.683333333333334,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 15.85,
+      "y": 5.3,
+      "angle": 0,
+      "rawWidth": 0.5666666666666667,
+      "rawHeight": 0.4,
+      "widthExpanded": 0.5833333333333334,
+      "heightExpanded": 0.4166666666666667,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 0.9166666666666666,
+      "y": 6.35,
+      "angle": 0,
+      "rawWidth": 1.7666666666666666,
+      "rawHeight": 9.233333333333333,
+      "widthExpanded": 1.7833333333333332,
+      "heightExpanded": 9.25,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 3.4833333333333334,
+      "y": 4,
+      "angle": 0,
+      "rawWidth": 2.433333333333333,
+      "rawHeight": 0.6,
+      "widthExpanded": 2.4499999999999997,
+      "heightExpanded": 0.6166666666666667,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 3.0166666666666666,
+      "y": 9.733333333333333,
+      "angle": 0,
+      "rawWidth": 2.433333333333333,
+      "rawHeight": 2.466666666666667,
+      "widthExpanded": 2.4499999999999997,
+      "heightExpanded": 2.4833333333333334,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 7.683333333333334,
+      "y": 10.033333333333333,
+      "angle": 0,
+      "rawWidth": 4.9,
+      "rawHeight": 1.8666666666666667,
+      "widthExpanded": 4.916666666666667,
+      "heightExpanded": 1.8833333333333333,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Ground",
+      "x": 13.35,
+      "y": 9.733333333333333,
+      "angle": 0,
+      "rawWidth": 4.433333333333334,
+      "rawHeight": 2.466666666666667,
+      "widthExpanded": 4.45,
+      "heightExpanded": 2.4833333333333334,
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 8.2,
+      "y": 4.833333333333333,
+      "angle": 0,
+      "rawWidth": 3.4,
+      "rawHeight": 0.06666666666666667,
+      "widthExpanded": 3.4166666666666665,
+      "heightExpanded": 0.08333333333333333,
+      "tags": [
+        "CLOUD"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 6.566666666666666,
+      "y": 5.566666666666666,
+      "angle": 0,
+      "rawWidth": 1.6666666666666667,
+      "rawHeight": 0.06666666666666667,
+      "widthExpanded": 1.6833333333333333,
+      "heightExpanded": 0.08333333333333333,
+      "tags": [
+        "CLOUD"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 3.5,
+      "y": 6.133333333333334,
+      "angle": 0,
+      "rawWidth": 3.4,
+      "rawHeight": 0.06666666666666667,
+      "widthExpanded": 3.4166666666666665,
+      "heightExpanded": 0.08333333333333333,
+      "tags": [
+        "CLOUD"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 7.383333333333334,
+      "y": 6.933333333333334,
+      "angle": 0,
+      "rawWidth": 3.1,
+      "rawHeight": 0.06666666666666667,
+      "widthExpanded": 3.1166666666666667,
+      "heightExpanded": 0.08333333333333333,
+      "tags": [
+        "CLOUD"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 7.383333333333334,
+      "y": 7.666666666666667,
+      "angle": 0,
+      "rawWidth": 3.1,
+      "rawHeight": 0.06666666666666667,
+      "widthExpanded": 3.1166666666666667,
+      "heightExpanded": 0.08333333333333333,
+      "tags": [
+        "CLOUD"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 7.383333333333334,
+      "y": 8.4,
+      "angle": 0,
+      "rawWidth": 3.1,
+      "rawHeight": 0.06666666666666667,
+      "widthExpanded": 3.1166666666666667,
+      "heightExpanded": 0.08333333333333333,
+      "tags": [
+        "CLOUD"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 13.083333333333334,
+      "y": 7.066666666666666,
+      "angle": 0,
+      "rawWidth": 3.1,
+      "rawHeight": 0.06666666666666667,
+      "widthExpanded": 3.1166666666666667,
+      "heightExpanded": 0.08333333333333333,
+      "tags": [
+        "CLOUD"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 13.083333333333334,
+      "y": 7.8,
+      "angle": 0,
+      "rawWidth": 3.1,
+      "rawHeight": 0.06666666666666667,
+      "widthExpanded": 3.1166666666666667,
+      "heightExpanded": 0.08333333333333333,
+      "tags": [
+        "CLOUD"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 14.1,
+      "y": 6.333333333333333,
+      "angle": 0,
+      "rawWidth": 2.933333333333333,
+      "rawHeight": 0.06666666666666667,
+      "widthExpanded": 2.9499999999999997,
+      "heightExpanded": 0.08333333333333333,
+      "tags": [
+        "CLOUD"
+      ],
+      "tiltValue": 0
+    },
+    {
+      "varName": "stair03",
+      "material": "Metal",
+      "x": 5.566666666666666,
+      "y": 6.533333333333333,
+      "angle": 0.7853981633974483,
+      "rawWidth": 1.1333333333333333,
+      "rawHeight": 0.1,
+      "widthExpanded": 1.15,
+      "heightExpanded": 0.11666666666666667,
+      "tags": [
+        "CLOUD"
+      ],
+      "tiltValue": 2
+    },
+    {
+      "varName": null,
+      "material": "Metal",
+      "x": 2,
+      "y": 4.633333333333334,
+      "angle": 0,
+      "rawWidth": 0.4,
+      "rawHeight": 2.7666666666666666,
+      "widthExpanded": 0.4166666666666667,
+      "heightExpanded": 2.783333333333333,
+      "tags": [
+        "LADDER"
+      ],
+      "tiltValue": 0
+    }
+  ],
+  "groundPolygons": [
+    {
+      "varName": "stair02",
+      "material": "Ground",
+      "x": 4.766666666666667,
+      "y": 9.8,
+      "angle": 0,
+      "rawVertices": [
+        [
+          -0.5333333333333333,
+          -1.3
+        ],
+        [
+          -0.3333333333333333,
+          -1.3
+        ],
+        [
+          0.4666666666666667,
+          -0.7
+        ],
+        [
+          0.4666666666666667,
+          1.1666666666666667
+        ],
+        [
+          -0.5333333333333333,
+          1.1666666666666667
+        ]
+      ],
+      "expandedVertices": [
+        [
+          -0.55,
+          -1.3166666666666667
+        ],
+        [
+          -0.35,
+          -1.3166666666666667
+        ],
+        [
+          0.48333333333333334,
+          -0.7166666666666667
+        ],
+        [
+          0.48333333333333334,
+          1.1833333333333333
+        ],
+        [
+          -0.55,
+          1.1833333333333333
+        ]
+      ],
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": 2
+    },
+    {
+      "varName": "stair01",
+      "material": "Ground",
+      "x": 10.666666666666666,
+      "y": 9.733333333333333,
+      "angle": 0,
+      "rawVertices": [
+        [
+          -0.5333333333333333,
+          -0.6333333333333333
+        ],
+        [
+          0.26666666666666666,
+          -1.2333333333333334
+        ],
+        [
+          0.4666666666666667,
+          -1.2333333333333334
+        ],
+        [
+          0.4666666666666667,
+          1.2333333333333334
+        ],
+        [
+          -0.5333333333333333,
+          1.2333333333333334
+        ]
+      ],
+      "expandedVertices": [
+        [
+          -0.55,
+          -0.65
+        ],
+        [
+          0.2833333333333333,
+          -1.25
+        ],
+        [
+          0.48333333333333334,
+          -1.25
+        ],
+        [
+          0.48333333333333334,
+          1.25
+        ],
+        [
+          -0.55,
+          1.25
+        ]
+      ],
+      "tags": [
+        "NONE"
+      ],
+      "tiltValue": -2
+    }
+  ],
+  "objects": [
+    {
+      "varName": "lift",
+      "typeString": "LIFT_01",
+      "primaryType": "LIFT_01",
+      "x": 2.8833333333333333,
+      "y": 8.666666666666666,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 27,
+      "pixelHeight": 6
+    },
+    {
+      "varName": null,
+      "typeString": "TABLE",
+      "primaryType": "TABLE",
+      "x": 14,
+      "y": 4.533333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 33,
+      "pixelHeight": 16
+    },
+    {
+      "varName": null,
+      "typeString": "CHAIR",
+      "primaryType": "CHAIR",
+      "x": 13.466666666666667,
+      "y": 4.566666666666666,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 14,
+      "pixelHeight": 16
+    },
+    {
+      "varName": null,
+      "typeString": "CHAIR_R",
+      "primaryType": "CHAIR_R",
+      "x": 14.533333333333333,
+      "y": 4.533333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 14,
+      "pixelHeight": 16
+    },
+    {
+      "varName": null,
+      "typeString": "PAPER,NONE",
+      "primaryType": "PAPER",
+      "x": 13.866666666666667,
+      "y": 4.216666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "COMP_SCREEN",
+      "primaryType": "COMP_SCREEN",
+      "x": 14.2,
+      "y": 4.1,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "COMP",
+      "primaryType": "COMP",
+      "x": 14.533333333333333,
+      "y": 4.1,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "PAPER",
+      "primaryType": "PAPER",
+      "x": 14.116666666666667,
+      "y": 4.15,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "PAPER",
+      "primaryType": "PAPER",
+      "x": 14.45,
+      "y": 4.15,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "DESK_1",
+      "primaryType": "DESK_1",
+      "x": 14.366666666666667,
+      "y": 4.5,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 33,
+      "pixelHeight": 18
+    },
+    {
+      "varName": null,
+      "typeString": "COMFY_CHAIR",
+      "primaryType": "COMFY_CHAIR",
+      "x": 13.666666666666666,
+      "y": 4.433333333333334,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 16,
+      "pixelHeight": 18
+    },
+    {
+      "varName": "crate_hanging_1",
+      "typeString": "CRATE_HANGING",
+      "primaryType": "CRATE_HANGING",
+      "x": 5.6,
+      "y": 4.366666666666666,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 27,
+      "pixelHeight": 14
+    },
+    {
+      "varName": "crate_hanging_2",
+      "typeString": "CRATE_HANGING",
+      "primaryType": "CRATE_HANGING",
+      "x": 10.1,
+      "y": 3.1666666666666665,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 27,
+      "pixelHeight": 14
+    },
+    {
+      "varName": "lamp2",
+      "typeString": "LAMP_1",
+      "primaryType": "LAMP_1",
+      "x": 12.233333333333333,
+      "y": 5.216666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 8
+    },
+    {
+      "varName": "lamp3",
+      "typeString": "LAMP_1",
+      "primaryType": "LAMP_1",
+      "x": 13.166666666666666,
+      "y": 2.816666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 8
+    },
+    {
+      "varName": "lamp1",
+      "typeString": "LAMP_1",
+      "primaryType": "LAMP_1",
+      "x": 14.1,
+      "y": 5.216666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 8
+    },
+    {
+      "varName": "lamp4",
+      "typeString": "LAMP_1",
+      "primaryType": "LAMP_1",
+      "x": 12.233333333333333,
+      "y": 2.816666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 8
+    },
+    {
+      "varName": "lamp5",
+      "typeString": "LAMP_1",
+      "primaryType": "LAMP_1",
+      "x": 14.1,
+      "y": 2.816666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 8
+    },
+    {
+      "varName": "lamp6",
+      "typeString": "LAMP_1",
+      "primaryType": "LAMP_1",
+      "x": 4.133333333333334,
+      "y": 4.383333333333334,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 8
+    },
+    {
+      "varName": "lamp7",
+      "typeString": "LAMP_1",
+      "primaryType": "LAMP_1",
+      "x": 2.8333333333333335,
+      "y": 4.383333333333334,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 8
+    },
+    {
+      "varName": null,
+      "typeString": "BARREL_EXPLOSIVE,CRATE,BARREL,NONE",
+      "primaryType": "BARREL_EXPLOSIVE",
+      "x": 9.383333333333333,
+      "y": 4.533333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 22
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,BARREL,BARREL_EXPLOSIVE,NONE",
+      "primaryType": "CRATE",
+      "x": 7.666666666666667,
+      "y": 4.566666666666666,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "BARREL,CRATE,NONE",
+      "primaryType": "BARREL",
+      "x": 11.7,
+      "y": 6.766666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 22
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,NONE",
+      "primaryType": "CRATE",
+      "x": 8.633333333333333,
+      "y": 4.566666666666666,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "BARREL_EXPLOSIVE,BARREL,CRATE,NONE",
+      "primaryType": "BARREL_EXPLOSIVE",
+      "x": 8.7,
+      "y": 8.133333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 22
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,NONE,BARREL_EXPLOSIVE",
+      "primaryType": "CRATE",
+      "x": 7.1,
+      "y": 6.666666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "BARREL,CRATE",
+      "primaryType": "BARREL",
+      "x": 6.1,
+      "y": 8.1,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 22
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,BARREL_EXPLOSIVE",
+      "primaryType": "CRATE",
+      "x": 14.783333333333333,
+      "y": 8.266666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,BARREL_EXPLOSIVE,NONE",
+      "primaryType": "CRATE",
+      "x": 14.366666666666667,
+      "y": 8.233333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "BARREL,BARREL_EXPLOSIVE,CRATE",
+      "primaryType": "BARREL",
+      "x": 3.2,
+      "y": 8.233333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 22
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,BARREL_EXPLOSIVE",
+      "primaryType": "CRATE",
+      "x": 3.6333333333333333,
+      "y": 3.433333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE",
+      "primaryType": "CRATE",
+      "x": 3.1333333333333333,
+      "y": 3.466666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,BARREL_EXPLOSIVE,GASCAN",
+      "primaryType": "CRATE",
+      "x": 14.3,
+      "y": 6.766666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "BARREL_EXPLOSIVE,GASCAN,NONE,NONE",
+      "primaryType": "BARREL_EXPLOSIVE",
+      "x": 13.466666666666667,
+      "y": 6.066666666666666,
+      "angle": 1.5707963267948966,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 22
+    },
+    {
+      "varName": null,
+      "typeString": "BARREL,NONE,GASCAN,BARREL_EXPLOSIVE",
+      "primaryType": "BARREL",
+      "x": 8.666666666666666,
+      "y": 6.666666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 22
+    },
+    {
+      "varName": null,
+      "typeString": "BARREL_EXPLOSIVE,CRATE,BARREL",
+      "primaryType": "BARREL_EXPLOSIVE",
+      "x": 4.4,
+      "y": 5.8,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 22
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,BARREL_EXPLOSIVE,NONE,BARREL",
+      "primaryType": "CRATE",
+      "x": 3.3666666666666667,
+      "y": 5.8,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "GASCAN,NONE",
+      "primaryType": "GASCAN",
+      "x": 7.166666666666667,
+      "y": 5.4,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 14,
+      "pixelHeight": 14
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,BARREL_EXPLOSIVE",
+      "primaryType": "CRATE",
+      "x": 7.366666666666666,
+      "y": 7.366666666666666,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,BARREL_EXPLOSIVE",
+      "primaryType": "CRATE",
+      "x": 7.033333333333333,
+      "y": 8.866666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,NONE,BARREL_EXPLOSIVE",
+      "primaryType": "CRATE",
+      "x": 11.833333333333334,
+      "y": 8.233333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "BARREL_EXPLOSIVE,BARREL,NONE,CRATE",
+      "primaryType": "BARREL_EXPLOSIVE",
+      "x": 12.5,
+      "y": 8.233333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 22
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,GASCAN,NONE",
+      "primaryType": "CRATE",
+      "x": 13.066666666666666,
+      "y": 7.533333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "BARREL_EXPLOSIVE,CRATE",
+      "primaryType": "BARREL_EXPLOSIVE",
+      "x": 13,
+      "y": 6.766666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 22
+    },
+    {
+      "varName": "lamp8",
+      "typeString": "LAMP_1",
+      "primaryType": "LAMP_1",
+      "x": 15.033333333333333,
+      "y": 2.816666666666667,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 8
+    },
+    {
+      "varName": null,
+      "typeString": "CRATE,BARREL_EXPLOSIVE,NONE",
+      "primaryType": "CRATE",
+      "x": 7.366666666666666,
+      "y": 8.1,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "FILECAB",
+      "primaryType": "FILECAB",
+      "x": 12.716666666666667,
+      "y": 4.483333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 18,
+      "pixelHeight": 26
+    },
+    {
+      "varName": null,
+      "typeString": "PAPER,NONE",
+      "primaryType": "PAPER",
+      "x": 12.75,
+      "y": 4.116666666666666,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": null,
+      "typeString": "PAPER,NONE",
+      "primaryType": "PAPER",
+      "x": 3.216666666666667,
+      "y": 3.0833333333333335,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 20,
+      "pixelHeight": 20
+    },
+    {
+      "varName": "holder1",
+      "typeString": "CRATE_HANGING_HOLDER",
+      "primaryType": "CRATE_HANGING_HOLDER",
+      "x": 5.6,
+      "y": 4.133333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 9,
+      "pixelHeight": 6
+    },
+    {
+      "varName": "holder2",
+      "typeString": "CRATE_HANGING_HOLDER",
+      "primaryType": "CRATE_HANGING_HOLDER",
+      "x": 10.1,
+      "y": 2.933333333333333,
+      "angle": 0,
+      "param6": 0,
+      "pixelWidth": 9,
+      "pixelHeight": 6
+    }
+  ]
+}

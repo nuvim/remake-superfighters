@@ -76,6 +76,17 @@ updated: 2026-10-21
    - Unificadas as escadas: `staticPolysPixel` agora é getter derivado dinamicamente das fixtures do Planck.js (`vertices * 30`), eliminando discrepâncias manuais e código morto de colisão.
    - Implementado `StairGeometry.test.ts` validando os polígonos contra `IncreaseCorners` (`MapPremadeItems.as:2807`).
    - 25/25 testes Vitest passando; `tsc --noEmit` 100% limpo. Commit e push realizados para `origin/main`.
-10. **Status Atual:** Sprint 0 / Fase A 100% concluída. Próximo passo: **Fase B (Oráculo)** do plano de paridade.
+10. **Sessão 4 — 2026-10-21 (Fases B e C Concluídas — O Oráculo e Geometria Única):**
+   - **Fase B (O Oráculo):**
+     - Desenvolvido `tools/make_oracle.py`: recompila 10 classes ActionScript (`MainTimeline`, `MenuMain`, `PlayersKeeper`, `PathGrid`, `PlayerBars`, `ScoreboardTeam`, `Scoreboard`, `Achievements`, `PlayerAnimation`, `Player`) injetando hitmap streaming (30 linhas/tick) e telemetria tick-a-tick.
+     - Criado `tools/run_oracle.py`: executa Ruffle CLI headless com backend DirectX 12.
+     - Criado `tools/parse_oracle.py`: gerou os 3 hitmaps golden completos (798.000 pontos cada: `hitmap_world.txt`, `hitmap_cloud.txt`, `hitmap_ladder.txt`) e 609 ticks de `player_trace_idle.json`.
+   - **Fase C (Geometria única):**
+     - Desenvolvido `tools/gen-map.mjs`: extrai geometria 1:1 de `Maps.as` para `src/data/generated/storage.json` (26 spawns, 24 groundBoxes, 2 polígonos com `IncreaseCorners`, 51 objetos dinâmicos).
+     - `StorageMap.ts` reescrito para construir toda a geometria dinamicamente de `storage.json`, eliminando todas as coordenadas manuais/hardcoded do TS.
+     - Criado teste `tests/HitmapParity.test.ts` e ferramenta `tools/compare_hitmaps.py`: paridade comprovada de 99.95% ladder, 99.40% cloud e 95.44% world.
+     - Todos os 33 testes do Vitest passando (8 arquivos de teste), build TS limpo e verificado no browser com subagent.
+11. **Status Atual:** Fases A, B e C 100% concluídas. Próximo passo: **Fase D (Cinemática do jogador e traces golden adicionais)**.
+
 
 

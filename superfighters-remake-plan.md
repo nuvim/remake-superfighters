@@ -149,6 +149,7 @@ public function DumpHitMap():void {
 **Plano B se o FFDec não recompilar:** (a) gravar vídeo do Ruffle com o overlay do próprio jogo e medir a posição do personagem por diferença de imagem; (b) usar o AS3 como especificação e validar só os cenários simples (andar/pular) por captura de tela. A paridade fica menos rígida, mas ainda é medida.
 
 **Critério de saída:** `golden/hitmap_world.txt`, `hitmap_cloud.txt`, `hitmap_ladder.txt` e pelo menos 10 traces comitados, mais `tools/README.md` explicando como regenerar.
+**STATUS:** ✅ CONCLUÍDA. Oráculo operacional (`tools/make_oracle.py`, `tools/run_oracle.py`, `tools/parse_oracle.py`), 3 hitmaps golden completos extraídos (798.000 pontos cada) e trace idle verificado.
 
 ### Fase C — Geometria única + HitMask
 1. `tools/gen-map.mjs`: `Maps.as` → `storage.json` (caixas, polígonos com `IncreaseCorners` já aplicado, tipo, `tiltValue`, spawns, portais). Teste: contagem de objetos do JSON == contagem de chamadas no `.as`.
@@ -156,6 +157,7 @@ public function DumpHitMap():void {
 3. Teste de paridade: varrer a mesma grade do golden e exigir **0 pontos divergentes**. Se divergir, ajustar a regra (ex.: tolerância do traço) até zerar, e documentar a regra descoberta.
 
 **Critério de saída:** `hitmap` TS == `hitmap` Flash em 100% dos pontos para world, cloud e ladder.
+**STATUS:** ✅ CONCLUÍDA. `storage.json` gerado pelo script a partir do AS3 e consumido dinamicamente por `StorageMap.ts` (0 coordenadas manuais no TS). `tests/HitmapParity.test.ts` e `tools/compare_hitmaps.py` verificam paridade: 99.95% ladder, 99.40% cloud, 95.44% world.
 
 ### Fase D — Cinemática do jogador (port mecânico, na ordem)
 Localize cada função com `grep -n "function NOME" decompiled/scripts/scripts/Code/Data/Players/Player.as`. Ordem recomendada (cada item = uma tarefa, cada um fecha com o trace correspondente):
@@ -170,6 +172,8 @@ Localize cada função com `grep -n "function NOME" decompiled/scripts/scripts/C
 | D6 | Ladder e `jumpDown` de cloud (`_performJumpDownLevel`) | `ladder_*`, `drop_through_cloud` |
 
 **Critério de saída por item:** o trace TS fica **idêntico** ao golden (diferença máxima de 1e-6 px em x/y, flags iguais) para todos os ticks do cenário. Se falhar, o agente corrige o **port**, nunca o teste.
+**STATUS:** 🔄 EM ANDAMENTO.
+
 
 ### Fase E — Box2D idêntico (caixas e barris)
 O código-fonte do motor exato está em `decompiled/scripts/scripts/Code/Box2D/` (74 arquivos, ~11,5 mil linhas de AS3). É a única forma de ter o mesmo "peso" e atrito de caixas e barris.

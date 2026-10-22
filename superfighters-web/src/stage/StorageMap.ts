@@ -2,6 +2,7 @@ import * as planck from 'planck';
 import { Container, Graphics, Sprite, Texture } from 'pixi.js';
 import type { Rect } from '../engine/Camera';
 import { DestructibleItem, type DestructibleType } from './DestructibleItem';
+import storageData from '../data/generated/storage.json';
 
 export interface GroundBoxDef {
   material: 'ground' | 'metal';
@@ -24,18 +25,13 @@ export interface GroundPolyDef {
 }
 
 /**
- * StorageMap — Port literal 1:1 de Maps.as (GenerateMapStorage, linhas 2346-2435).
- * Todas as coordenadas e geometrias copiadas estritamente do código ActionScript original.
+ * StorageMap — Geometria 1:1 derivada diretamente de storage.json (Maps.as:GenerateMapStorage).
+ * Única fonte de verdade gerada via tools/gen-map.mjs.
  */
 export class StorageMap {
   public static readonly PTM_RATIO: number = 30.0;
 
-  public readonly mapArea: Rect = {
-    x: 23,
-    y: -26,
-    width: 477,
-    height: 365
-  };
+  public readonly mapArea: Rect = storageData.mapArea;
 
   public readonly world: planck.World;
   public readonly bgSprite: Sprite;
@@ -74,58 +70,15 @@ export class StorageMap {
     this.renderDebugHitboxes();
   }
 
-  public readonly groundBoxes: GroundBoxDef[] = [
-    // Linha 2350
-    { material: 'ground', x: 176.5 / 30, y: 26.5 / 30, angle: 0, width: 351 / 30, height: 51 / 30, type: 'NONE' },
-    // Linha 2351
-    { material: 'ground', x: 431 / 30, y: 41.5 / 30, angle: 0, width: 184 / 30, height: 81 / 30, type: 'NONE' },
-    // Linha 2352
-    { material: 'ground', x: 345 / 30, y: 94 / 30, angle: 0, width: 12 / 30, height: 24 / 30, type: 'NONE' },
-    // Linha 2353
-    { material: 'ground', x: 495 / 30, y: 99.5 / 30, angle: 0, width: 56 / 30, height: 35 / 30, type: 'NONE' },
-    // Linha 2354
-    { material: 'ground', x: 411.5 / 30, y: 147 / 30, angle: 0, width: 145 / 30, height: 12 / 30, type: 'NONE' },
-    // Linha 2355
-    { material: 'ground', x: 503.5 / 30, y: 153 / 30, angle: 0, width: 39 / 30, height: 72 / 30, type: 'NONE' },
-    // Linha 2356
-    { material: 'ground', x: 495 / 30, y: 259 / 30, angle: 0, width: 56 / 30, height: 140 / 30, type: 'NONE' },
-    // Linha 2357
-    { material: 'ground', x: 475.5 / 30, y: 159 / 30, angle: 0, width: 17 / 30, height: 12 / 30, type: 'NONE' },
-    // Linha 2358
-    { material: 'ground', x: 27.5 / 30, y: 190.5 / 30, angle: 0, width: 53 / 30, height: 277 / 30, type: 'NONE' },
-    // Linha 2359
-    { material: 'metal', x: 104.5 / 30, y: 120 / 30, angle: 0, width: 73 / 30, height: 18 / 30, type: 'NONE' },
-    // Linha 2360
-    { material: 'ground', x: 90.5 / 30, y: 292 / 30, angle: 0, width: 73 / 30, height: 74 / 30, type: 'NONE' },
-    // Linha 2361
-    { material: 'ground', x: 230.5 / 30, y: 301 / 30, angle: 0, width: 147 / 30, height: 56 / 30, type: 'NONE' },
-    // Linha 2364
-    { material: 'ground', x: 400.5 / 30, y: 292 / 30, angle: 0, width: 133 / 30, height: 74 / 30, type: 'NONE' },
-
-    // Plataformas semi-sólidas (CLOUD)
-    // Linha 2367
-    { material: 'metal', x: 246 / 30, y: 145 / 30, angle: 0, width: 102 / 30, height: 2 / 30, type: 'CLOUD' },
-    // Linha 2368
-    { material: 'metal', x: 197 / 30, y: 167 / 30, angle: 0, width: 50 / 30, height: 2 / 30, type: 'CLOUD' },
-    // Linha 2369
-    { material: 'metal', x: 105 / 30, y: 184 / 30, angle: 0, width: 102 / 30, height: 2 / 30, type: 'CLOUD' },
-    // Linha 2370
-    { material: 'metal', x: 221.5 / 30, y: 208 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
-    // Linha 2371
-    { material: 'metal', x: 221.5 / 30, y: 230 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
-    // Linha 2372
-    { material: 'metal', x: 221.5 / 30, y: 252 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
-    // Linha 2373
-    { material: 'metal', x: 392.5 / 30, y: 212 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
-    // Linha 2374
-    { material: 'metal', x: 392.5 / 30, y: 234 / 30, angle: 0, width: 93 / 30, height: 2 / 30, type: 'CLOUD' },
-    // Linha 2375
-    { material: 'metal', x: 423 / 30, y: 190 / 30, angle: 0, width: 88 / 30, height: 2 / 30, type: 'CLOUD' },
-    // Linha 2376 (Rampa CLOUD inclinada)
-    { material: 'metal', x: 167 / 30, y: 196 / 30, angle: 0.7853981633974483, width: 34 / 30, height: 3 / 30, type: 'CLOUD' },
-    // Linha 2378 (Escada LADDER)
-    { material: 'metal', x: 60 / 30, y: 139 / 30, angle: 0, width: 12 / 30, height: 83 / 30, type: 'LADDER' }
-  ];
+  public readonly groundBoxes: GroundBoxDef[] = storageData.groundBoxes.map(b => ({
+    material: b.material.toLowerCase() as 'ground' | 'metal',
+    x: b.x,
+    y: b.y,
+    angle: b.angle,
+    width: b.rawWidth,
+    height: b.rawHeight,
+    type: b.tags.includes('CLOUD') ? 'CLOUD' : (b.tags.includes('LADDER') ? 'LADDER' : 'NONE')
+  }));
 
   /**
    * staticPolysPixel derivado dos fixtures dos corpos das escadas (vértices do corpo x 30).
@@ -189,41 +142,16 @@ export class StorageMap {
       this.staticGroundBodies.push(body);
     }
 
-    // Polígonos de escadas (stair02 e stair01 de Maps.as:2362-2366)
-    const groundPolys: GroundPolyDef[] = [
-      // stair02 (Linha 2362)
-      {
-        material: 'ground',
-        x: 143 / 30,
-        y: 294 / 30,
-        angle: 0,
-        vertices: [
-          [-16 / 30, -39 / 30],
-          [-10 / 30, -39 / 30],
-          [14 / 30, -21 / 30],
-          [14 / 30, 35 / 30],
-          [-16 / 30, 35 / 30]
-        ],
-        type: 'NONE',
-        tiltValue: 2
-      },
-      // stair01 (Linha 2365)
-      {
-        material: 'ground',
-        x: 320 / 30,
-        y: 292 / 30,
-        angle: 0,
-        vertices: [
-          [-16 / 30, -19 / 30],
-          [8 / 30, -37 / 30],
-          [14 / 30, -37 / 30],
-          [14 / 30, 37 / 30],
-          [-16 / 30, 37 / 30]
-        ],
-        type: 'NONE',
-        tiltValue: -2
-      }
-    ];
+    // Polígonos de escadas (stair02 e stair01) de storage.json
+    const groundPolys: GroundPolyDef[] = storageData.groundPolygons.map(p => ({
+      material: p.material.toLowerCase() as 'ground' | 'metal',
+      x: p.x,
+      y: p.y,
+      angle: p.angle,
+      vertices: p.rawVertices as [number, number][],
+      type: p.tags.includes('CLOUD') ? 'CLOUD' : (p.tags.includes('LADDER') ? 'LADDER' : 'NONE'),
+      tiltValue: p.tiltValue
+    }));
 
     for (const p of groundPolys) {
       // Regra de MapPremadeItems.as:2807 IncreaseCorners:
@@ -281,56 +209,14 @@ export class StorageMap {
     textures: Record<string, Texture>,
     objectsContainer: Container
   ): void {
-    const rawSpawns: Array<{ type: DestructibleType; x: number; y: number; angle?: number }> = [
-      // Linha 2411
-      { type: 'BARREL_EXPLOSIVE', x: 281.5 / 30, y: 136 / 30 },
-      // Linha 2412
-      { type: 'CRATE', x: 230 / 30, y: 137 / 30 },
-      // Linha 2413
-      { type: 'BARREL', x: 351 / 30, y: 203 / 30 },
-      // Linha 2414
-      { type: 'CRATE', x: 259 / 30, y: 137 / 30 },
-      // Linha 2415
-      { type: 'BARREL_EXPLOSIVE', x: 261 / 30, y: 244 / 30 },
-      // Linha 2416
-      { type: 'CRATE', x: 213 / 30, y: 200 / 30 },
-      // Linha 2417
-      { type: 'BARREL', x: 183 / 30, y: 243 / 30 },
-      // Linha 2418
-      { type: 'CRATE', x: 443.5 / 30, y: 248 / 30 },
-      // Linha 2419
-      { type: 'CRATE', x: 431 / 30, y: 247 / 30 },
-      // Linha 2420
-      { type: 'BARREL', x: 96 / 30, y: 247 / 30 },
-      // Linha 2421
-      { type: 'CRATE', x: 109 / 30, y: 103 / 30 },
-      // Linha 2422
-      { type: 'CRATE', x: 94 / 30, y: 104 / 30 },
-      // Linha 2423
-      { type: 'CRATE', x: 429 / 30, y: 203 / 30 },
-      // Linha 2424 (Barril explosivo tombado horizontalmente: Math.PI / 2)
-      { type: 'BARREL_EXPLOSIVE', x: 404 / 30, y: 182 / 30, angle: 1.5707963267948966 },
-      // Linha 2425
-      { type: 'BARREL', x: 260 / 30, y: 200 / 30 },
-      // Linha 2426
-      { type: 'BARREL_EXPLOSIVE', x: 132 / 30, y: 174 / 30 },
-      // Linha 2427
-      { type: 'CRATE', x: 101 / 30, y: 174 / 30 },
-      // Linha 2429
-      { type: 'CRATE', x: 221 / 30, y: 221 / 30 },
-      // Linha 2430
-      { type: 'CRATE', x: 211 / 30, y: 266 / 30 },
-      // Linha 2431
-      { type: 'CRATE', x: 355 / 30, y: 247 / 30 },
-      // Linha 2432
-      { type: 'BARREL_EXPLOSIVE', x: 375 / 30, y: 247 / 30 },
-      // Linha 2433
-      { type: 'CRATE', x: 392 / 30, y: 226 / 30 },
-      // Linha 2434
-      { type: 'BARREL_EXPLOSIVE', x: 390 / 30, y: 203 / 30 },
-      // Linha 2436
-      { type: 'CRATE', x: 221 / 30, y: 243 / 30 }
-    ];
+    const rawSpawns: Array<{ type: DestructibleType; x: number; y: number; angle?: number }> = storageData.objects
+      .filter(obj => ['CRATE', 'BARREL', 'BARREL_EXPLOSIVE'].includes(obj.primaryType))
+      .map(obj => ({
+        type: obj.primaryType as DestructibleType,
+        x: obj.x,
+        y: obj.y,
+        angle: obj.angle
+      }));
 
     for (const item of rawSpawns) {
       const tex = textures[item.type];

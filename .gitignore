@@ -27,3 +27,8 @@ archive/superfighters-flash-game/*.zip
 tools/ffdec.zip
 tools/extract/swf.xml
 tools/extract/temp/
+tools/temp_oracle/
+tools/oracle_run.log
+tools/ruffle_out.txt
+tools/test_replace_out.swf
+
